@@ -7,7 +7,10 @@ using std::endl;
 
 int main(){
     CheckerBoard board;
-    //board.test_is_occupied();
+    board.gen_children();
+
+    CheckerBoard child = CheckerBoard(board.children[0]);
+    child.gen_children();
 
     return 0;
 }

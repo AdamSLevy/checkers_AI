@@ -30,8 +30,6 @@ struct BitBoard
     bool operator==( const BitBoard & ) const;
 };
 
-    
-
 class CheckerBoard
 {
     public:
@@ -41,7 +39,7 @@ class CheckerBoard
 
         void test_is_occupied();
 
-        vector<BitBoard> children;
+        vector<BitBoard> m_children;
     private:
         //CheckerBoard(const CheckerBoard &);
         //operator=(const CheckerBoard &);
@@ -52,6 +50,8 @@ class CheckerBoard
 
 
         bool is_occupied(size_t pos_index);
+
+        vector<BitBoard> follow_jumps(const BitBoard & bb, uint32_t follow_mask = 0xffFFffFF);
 };
 
 

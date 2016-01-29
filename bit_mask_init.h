@@ -13,28 +13,49 @@
 #define ROW_MASK(row) (0xf << (4*(row)))
 #define COL_MASK(col) (0x11111111 << (col))
 
-#define SHIFT_LEFT(pos)     (((pos) << 4) | (((pos) &  LEFT3_MASK) << 3) | (((pos) &  LEFT5_MASK) << 5))
-#define SHIFT_RIGHT(pos)    (((pos) >> 4) | (((pos) & RIGHT3_MASK) >> 3) | (((pos) & RIGHT5_MASK) >> 5))
+// MOVE SHIFT MASKS
+#define LEFT3_MASK       ((~COL_MASK(0)) & (ROW_MASK(0) | ROW_MASK(2) | ROW_MASK(4) | ROW_MASK(6)))           // 0b00001110000011100000111000001110
+#define LEFT5_MASK       ((~COL_MASK(3)) & (ROW_MASK(1) | ROW_MASK(3) | ROW_MASK(5)))                         //0b00000000011100000111000001110000;
+#define RIGHT3_MASK      ((~COL_MASK(3)) & (ROW_MASK(1) | ROW_MASK(3) | ROW_MASK(5) | ROW_MASK(7)))           //0b01110000011100000111000001110000;
+#define RIGHT5_MASK      ((~COL_MASK(0)) & (ROW_MASK(0) | ROW_MASK(2) | ROW_MASK(4)))                         //0b00001110000011100000111000000000;
+// JUMP SHIFT MASKS
+#define LEFT7_MASK       ((~COL_MASK(0)) & (~(ROW_MASK(6) | ROW_MASK(7))))
+#define LEFT9_MASK       ((~COL_MASK(3)) & (~(ROW_MASK(6) | ROW_MASK(7))))
+#define RIGHT7_MASK      ((~COL_MASK(3)) & (~(ROW_MASK(0) | ROW_MASK(1))))
+#define RIGHT9_MASK      ((~COL_MASK(0)) & (~(ROW_MASK(0) | ROW_MASK(1))))
 
-#define BLK_FORWD(pos) SHIFT_LEFT(pos)
-#define BLK_BCKWD(pos) SHIFT_RIGHT(pos)
+// GENERATE MOVES OR PIECES CONCURRENTLY ON A BOARD
+#define MOVE_LEFT(pos)     (((pos) << 4) | (((pos) &  LEFT3_MASK) << 3) | (((pos) &  LEFT5_MASK) << 5))
+#define MOVE_RIGHT(pos)    (((pos) >> 4) | (((pos) & RIGHT3_MASK) >> 3) | (((pos) & RIGHT5_MASK) >> 5))
 
-#define RED_FORWD(pos) SHIFT_RIGHT(pos)
-#define RED_BCKWD(pos) SHIFT_LEFT(pos)
+// GENERATE JUMP POSITIONS OR JUMP PIECES CONCURRENTLY ON A BOARD
+#define JUMP_LEFT(pos)     ((((pos) &  LEFT7_MASK) << 7) | (((pos) &  LEFT9_MASK) << 9))
+#define JUMP_RIGHT(pos)    ((((pos) & RIGHT7_MASK) >> 7) | (((pos) & RIGHT9_MASK) >> 9))
+
+// FORWARD GIVES VALID POTENTIAL MOVES FROM THE GIVEN PIECES (pos)
+#define BLK_FORWD(pos) MOVE_LEFT(pos)
+#define BLK_JUMP(pos)  JUMP_LEFT(pos)
+// BACKWARD GIVES PIECES THAT COULD HAVE MOVED FROM THE GIVEN POSITIONS (pos)
+#define BLK_BCKWD(pos)      MOVE_RIGHT(pos)
+#define BLK_JUMP_BACK(pos)  JUMP_RIGHT(pos)
+
+// SAME FOR RED
+#define RED_FORWD(pos)      MOVE_RIGHT(pos)
+#define RED_JUMP(pos)       JUMP_RIGHT(pos)
+#define RED_BCKWD(pos)      MOVE_LEFT(pos)
+#define RED_JUMP_BACK(pos)  JUMP_LEFT(pos)
+
+// REMOVE THE GUESS WORK AND SAVE REDUNDANT CODE
+#define FORWD(turn, pos) ((BLK_FORWD(pos) & (0xffFFffFF * (turn))) | (RED_FORWD(pos) & (0xffFFffFF * !(turn))))
+#define BCKWD(turn, pos) ((BLK_BCKWD(pos) & (0xffFFffFF * (turn))) | (RED_BCKWD(pos) & (0xffFFffFF * !(turn))))
+#define FORWD_JUMP(turn, pos) ((BLK_JUMP(pos) & (0xffFFffFF * (turn))) | (RED_JUMP(pos) & (0xffFFffFF * !(turn))))
+#define BCKWD_JUMP(turn, pos) ((BLK_JUMP_BACK(pos) & (0xffFFffFF * (turn))) | (RED_JUMP_BACK(pos) & (0xffFFffFF * !(turn))))
 
 #define RED 0
 #define BLK 1
 
-#define FORWD(turn, pos) ((BLK_FORWD(pos) & (0xffFFffFF * (turn))) | (RED_FORWD(pos) & (0xffFFffFF * !(turn))))
-#define BCKWD(turn, pos) ((BLK_BCKWD(pos) & (0xffFFffFF * (turn))) | (RED_BCKWD(pos) & (0xffFFffFF * !(turn))))
-
 #define FIRST_TURN BLK
 
-const uint32_t LEFT3_MASK       = (~COL_MASK(0)) & (ROW_MASK(0) | ROW_MASK(2) | ROW_MASK(4) | ROW_MASK(6)); // 0b00001110000011100000111000001110
-const uint32_t LEFT5_MASK       = (~COL_MASK(3)) & (ROW_MASK(1) | ROW_MASK(3) | ROW_MASK(5));               //0b00000000011100000111000001110000;
-const uint32_t RIGHT3_MASK      = (~COL_MASK(3)) & (ROW_MASK(1) | ROW_MASK(3) | ROW_MASK(5) | ROW_MASK(7)); //0b01110000011100000111000001110000;
-const uint32_t RIGHT5_MASK      = (~COL_MASK(0)) & (ROW_MASK(0) | ROW_MASK(2) | ROW_MASK(4));               //0b00001110000011100000111000000000;
-const uint32_t LEFT7_MASK = 0;
 
 
 //

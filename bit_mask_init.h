@@ -14,10 +14,10 @@
 #define COL_MASK(col) (0x11111111 << (col))
 
 // MOVE SHIFT MASKS
-#define LEFT3_MASK       ((~COL_MASK(0)) & (ROW_MASK(0) | ROW_MASK(2) | ROW_MASK(4) | ROW_MASK(6)))           // 0b00001110000011100000111000001110
+#define LEFT3_MASK       ((~COL_MASK(0)) & (ROW_MASK(0) | ROW_MASK(2) | ROW_MASK(4) | ROW_MASK(6)))           //0b00001110000011100000111000001110
 #define LEFT5_MASK       ((~COL_MASK(3)) & (ROW_MASK(1) | ROW_MASK(3) | ROW_MASK(5)))                         //0b00000000011100000111000001110000;
 #define RIGHT3_MASK      ((~COL_MASK(3)) & (ROW_MASK(1) | ROW_MASK(3) | ROW_MASK(5) | ROW_MASK(7)))           //0b01110000011100000111000001110000;
-#define RIGHT5_MASK      ((~COL_MASK(0)) & (ROW_MASK(0) | ROW_MASK(2) | ROW_MASK(4)))                         //0b00001110000011100000111000000000;
+#define RIGHT5_MASK      ((~COL_MASK(0)) & (ROW_MASK(2) | ROW_MASK(4) | ROW_MASK(6)))                         //0b00000000111000001110000011100000;
 // JUMP SHIFT MASKS
 #define LEFT7_MASK       ((~COL_MASK(0)) & (~(ROW_MASK(6) | ROW_MASK(7))))
 #define LEFT9_MASK       ((~COL_MASK(3)) & (~(ROW_MASK(6) | ROW_MASK(7))))
@@ -25,36 +25,55 @@
 #define RIGHT9_MASK      ((~COL_MASK(0)) & (~(ROW_MASK(0) | ROW_MASK(1))))
 
 // GENERATE MOVES OR PIECES CONCURRENTLY ON A BOARD
-#define MOVE_LEFT(pos)     (((pos) << 4) | (((pos) &  LEFT3_MASK) << 3) | (((pos) &  LEFT5_MASK) << 5))
-#define MOVE_RIGHT(pos)    (((pos) >> 4) | (((pos) & RIGHT3_MASK) >> 3) | (((pos) & RIGHT5_MASK) >> 5))
+#define MOVE_LEFT(pos)      (((pos) << 4) | (((pos) &  LEFT3_MASK) << 3) | (((pos) &  LEFT5_MASK) << 5))
+#define MOVE_RIGHT(pos)     (((pos) >> 4) | (((pos) & RIGHT3_MASK) >> 3) | (((pos) & RIGHT5_MASK) >> 5))
+
+#define LEFT_4(pos)         ((pos) << 4)
+#define RIGHT_4(pos)        ((pos) >> 4)
 
 // GENERATE JUMP POSITIONS OR JUMP PIECES CONCURRENTLY ON A BOARD
-#define JUMP_LEFT(pos)     ((((pos) &  LEFT7_MASK) << 7) | (((pos) &  LEFT9_MASK) << 9))
-#define JUMP_RIGHT(pos)    ((((pos) & RIGHT7_MASK) >> 7) | (((pos) & RIGHT9_MASK) >> 9))
+#define JUMP_LEFT(pos)      ((((pos) &  LEFT7_MASK) << 7) | (((pos) &  LEFT9_MASK) << 9))
+#define JUMP_RIGHT(pos)     ((((pos) & RIGHT7_MASK) >> 7) | (((pos) & RIGHT9_MASK) >> 9))
 
 // FORWARD GIVES VALID POTENTIAL MOVES FROM THE GIVEN PIECES (pos)
-#define BLK_FORWD(pos) MOVE_LEFT(pos)
-#define BLK_JUMP(pos)  JUMP_LEFT(pos)
+#define BLK_FORWD(pos)      MOVE_LEFT(pos)
+#define BLK_FORWD_4(pos)    LEFT_4(pos)
+#define BLK_JUMP(pos)       JUMP_LEFT(pos)
 // BACKWARD GIVES PIECES THAT COULD HAVE MOVED FROM THE GIVEN POSITIONS (pos)
 #define BLK_BCKWD(pos)      MOVE_RIGHT(pos)
+#define BLK_BCKWD_4(pos)    RIGHT_4(pos)
 #define BLK_JUMP_BACK(pos)  JUMP_RIGHT(pos)
 
 // SAME FOR RED
 #define RED_FORWD(pos)      MOVE_RIGHT(pos)
+#define RED_FORWD_4(pos)    RIGHT_4(pos)
 #define RED_JUMP(pos)       JUMP_RIGHT(pos)
 #define RED_BCKWD(pos)      MOVE_LEFT(pos)
+#define RED_BCKWD_4(pos)    LEFT_4(pos)
 #define RED_JUMP_BACK(pos)  JUMP_LEFT(pos)
 
+#define IS_RED(turn)        (0xffFFffFF * !(turn))
+#define IS_BLK(turn)        (0xffFFffFF *  (turn))
+
 // REMOVE THE GUESS WORK AND SAVE REDUNDANT CODE
-#define FORWD(turn, pos) ((BLK_FORWD(pos) & (0xffFFffFF * (turn))) | (RED_FORWD(pos) & (0xffFFffFF * !(turn))))
-#define BCKWD(turn, pos) ((BLK_BCKWD(pos) & (0xffFFffFF * (turn))) | (RED_BCKWD(pos) & (0xffFFffFF * !(turn))))
-#define FORWD_JUMP(turn, pos) ((BLK_JUMP(pos) & (0xffFFffFF * (turn))) | (RED_JUMP(pos) & (0xffFFffFF * !(turn))))
-#define BCKWD_JUMP(turn, pos) ((BLK_JUMP_BACK(pos) & (0xffFFffFF * (turn))) | (RED_JUMP_BACK(pos) & (0xffFFffFF * !(turn))))
+#define FORWD(turn, pos)        ((BLK_FORWD(pos)        & IS_BLK(turn) | (RED_FORWD(pos)      & IS_RED(turn))))
+#define FORWD_4(turn, pos)      ((BLK_FORWD_4(pos)      & IS_BLK(turn) | (RED_FORWD_4(pos)    & IS_RED(turn))))
+#define FORWD_JUMP(turn, pos)   ((BLK_JUMP(pos)         & IS_BLK(turn) | (RED_JUMP(pos)       & IS_RED(turn))))
+
+#define BCKWD(turn, pos)        ((BLK_BCKWD(pos)        & IS_BLK(turn) | (RED_BCKWD(pos)      & IS_RED(turn))))
+#define BCKWD_4(turn, pos)      ((BLK_BCKWD_4(pos)      & IS_BLK(turn) | (RED_BCKWD_4(pos)    & IS_RED(turn))))
+#define BCKWD_JUMP(turn, pos)   ((BLK_JUMP_BACK(pos)    & IS_BLK(turn) | (RED_JUMP_BACK(pos)  & IS_RED(turn))))
+
+#define KING_ME_ROW_MASK(turn)  ((ROW_MASK(7)           & IS_BLK(turn) | (ROW_MASK(0)         & IS_RED(turn))))
 
 #define RED 0
 #define BLK 1
 
 #define FIRST_TURN BLK
+
+#define NUM_PIECES      12
+#define NUM_POS         0x20
+#define LAST_POS_INDEX  (NUM_POS - 1)
 
 
 
@@ -102,9 +121,6 @@
 //
 
 
-#define NUM_PIECES      12
-#define NUM_POS         0x20
-#define LAST_POS_INDEX  (NUM_POS - 1)
 
 const uint32_t BLK_MOV_MASK[NUM_POS] = { 0b00000000000000000000000000110000,
                                          0b00000000000000000000000001100000,
@@ -144,7 +160,7 @@ const uint32_t BLK_MOV_MASK[NUM_POS] = { 0b00000000000000000000000000110000,
                                          0b00000000000000000000000000000000,
                                          0b00000000000000000000000000000000,
                                          0b00000000000000000000000000000000,
-                                         0b00000000000000000000000000000000};
+                                         0b00000000000000000000000000000000 };
 
 const uint32_t RED_MOV_MASK[NUM_POS] = { 0b00000000000000000000000000000000,
                                          0b00000000000000000000000000000000,
@@ -184,40 +200,47 @@ const uint32_t RED_MOV_MASK[NUM_POS] = { 0b00000000000000000000000000000000,
                                          0b00000001000000000000000000000000,
                                          0b00000011000000000000000000000000,
                                          0b00000110000000000000000000000000,
-                                         0b00001100000000000000000000000000};
+                                         0b00001100000000000000000000000000 };
 
 const uint32_t POS_MASK[NUM_POS]     = { 0b00000000000000000000000000000001,
                                          0b00000000000000000000000000000010,
                                          0b00000000000000000000000000000100,
                                          0b00000000000000000000000000001000,
+
                                          0b00000000000000000000000000010000,
                                          0b00000000000000000000000000100000,
                                          0b00000000000000000000000001000000,
                                          0b00000000000000000000000010000000,
+
                                          0b00000000000000000000000100000000,
                                          0b00000000000000000000001000000000,
                                          0b00000000000000000000010000000000,
                                          0b00000000000000000000100000000000,
+
                                          0b00000000000000000001000000000000,
                                          0b00000000000000000010000000000000,
                                          0b00000000000000000100000000000000,
                                          0b00000000000000001000000000000000,
+
                                          0b00000000000000010000000000000000,
                                          0b00000000000000100000000000000000,
                                          0b00000000000001000000000000000000,
                                          0b00000000000010000000000000000000,
+
                                          0b00000000000100000000000000000000,
                                          0b00000000001000000000000000000000,
                                          0b00000000010000000000000000000000,
                                          0b00000000100000000000000000000000,
+
                                          0b00000001000000000000000000000000,
                                          0b00000010000000000000000000000000,
                                          0b00000100000000000000000000000000,
                                          0b00001000000000000000000000000000,
+
                                          0b00010000000000000000000000000000,
                                          0b00100000000000000000000000000000,
                                          0b01000000000000000000000000000000,
-                                         0b10000000000000000000000000000000};
+                                         0b10000000000000000000000000000000 };
 
 
 const uint32_t RED_INIT_POS_BM  = 0xFFF00000;

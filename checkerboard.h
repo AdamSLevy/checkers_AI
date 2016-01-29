@@ -36,6 +36,7 @@ class CheckerBoard
         CheckerBoard();
         CheckerBoard(BitBoard);
         void gen_children();
+        BitBoard m_bb;
 
         void test_is_occupied();
 
@@ -43,11 +44,6 @@ class CheckerBoard
     private:
         //CheckerBoard(const CheckerBoard &);
         //operator=(const CheckerBoard &);
-        BitBoard m_bb;
-
-        vector<Piece> red_pieces;
-        vector<Piece> blk_pieces;
-
 
         bool is_occupied(size_t pos_index);
 
@@ -57,3 +53,5 @@ class CheckerBoard
 
 void print_board( const uint32_t board );
 void print_bb( const BitBoard & bb);
+string to_string( const BitBoard & bb);
+BitBoard from_string( const string & s_board, bool turn );

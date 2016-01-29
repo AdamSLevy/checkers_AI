@@ -1,3 +1,6 @@
+// Release 0.1
+// Adam Levy
+
 #include "checkerboard.h"
 
 CheckerBoard::CheckerBoard()/*{{{*/

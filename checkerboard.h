@@ -1,3 +1,6 @@
+// Release 0.1
+// Adam Levy
+
 #include "bit_mask_init.h"
 
 #include <vector>

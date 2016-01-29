@@ -1,3 +1,6 @@
+// Release 0.1
+// Adam Levy
+
 #include <iostream>
 
 using std::cout;
@@ -6,7 +9,7 @@ using std::endl;
 #include "checkerboard.h"
 
 int main(){
-    CheckerBoard board(from_string("________rrr_____r_______r___b___", BLK));
+    CheckerBoard board;
 
     size_t num_boards = 20;
     while ( num_boards > 0 ){

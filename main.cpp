@@ -9,7 +9,7 @@ using std::endl;
 #include "checkerboard.h"
 
 int main(){
-    CheckerBoard board;
+    CheckerBoard board(from_string("rrrrrrrbrbrr_bB_r____bb_bbbbbbbb",BLK));
 
     size_t num_boards = 20;
     while ( num_boards > 0 ){

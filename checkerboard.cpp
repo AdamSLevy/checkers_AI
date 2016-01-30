@@ -145,10 +145,8 @@ void CheckerBoard::gen_children()/*{{{*/
                                 child.king_pos &= ~p_piece;
                                 child.king_pos |= p_loc[i];
                             }
-                            bool kinged = false;
                             if (!is_king && (KING_ME_ROW_MASK(turn) & p_loc[i])){                     // check for king_me
                                 child.king_pos |= p_loc[i];
-                                kinged = true;
                             }
                             child.turn = !turn;
 

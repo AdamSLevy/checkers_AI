@@ -60,15 +60,15 @@
 #define IS_BLK(turn)        (0xffFFffFF *  (turn))
 
 // REMOVE THE GUESS WORK AND SAVE REDUNDANT CODE
-#define FORWD(turn, pos)        ((BLK_FORWD(pos)        & IS_BLK(turn) | (RED_FORWD(pos)      & IS_RED(turn))))
-#define FORWD_4(turn, pos)      ((BLK_FORWD_4(pos)      & IS_BLK(turn) | (RED_FORWD_4(pos)    & IS_RED(turn))))
-#define FORWD_JUMP(turn, pos)   ((BLK_JUMP(pos)         & IS_BLK(turn) | (RED_JUMP(pos)       & IS_RED(turn))))
+#define FORWD(turn, pos)        ((BLK_FORWD(pos)        & IS_BLK(turn)) | (RED_FORWD(pos)      & IS_RED(turn)))
+#define FORWD_4(turn, pos)      ((BLK_FORWD_4(pos)      & IS_BLK(turn)) | (RED_FORWD_4(pos)    & IS_RED(turn)))
+#define FORWD_JUMP(turn, pos)   ((BLK_JUMP(pos)         & IS_BLK(turn)) | (RED_JUMP(pos)       & IS_RED(turn)))
+                                                                      
+#define BCKWD(turn, pos)        ((BLK_BCKWD(pos)        & IS_BLK(turn)) | (RED_BCKWD(pos)      & IS_RED(turn)))
+#define BCKWD_4(turn, pos)      ((BLK_BCKWD_4(pos)      & IS_BLK(turn)) | (RED_BCKWD_4(pos)    & IS_RED(turn)))
+#define BCKWD_JUMP(turn, pos)   ((BLK_JUMP_BACK(pos)    & IS_BLK(turn)) | (RED_JUMP_BACK(pos)  & IS_RED(turn)))
 
-#define BCKWD(turn, pos)        ((BLK_BCKWD(pos)        & IS_BLK(turn) | (RED_BCKWD(pos)      & IS_RED(turn))))
-#define BCKWD_4(turn, pos)      ((BLK_BCKWD_4(pos)      & IS_BLK(turn) | (RED_BCKWD_4(pos)    & IS_RED(turn))))
-#define BCKWD_JUMP(turn, pos)   ((BLK_JUMP_BACK(pos)    & IS_BLK(turn) | (RED_JUMP_BACK(pos)  & IS_RED(turn))))
-
-#define KING_ME_ROW_MASK(turn)  ((ROW_MASK(7)           & IS_BLK(turn) | (ROW_MASK(0)         & IS_RED(turn))))
+#define KING_ME_ROW_MASK(turn)  ((ROW_MASK(7)           & IS_BLK(turn)) | (ROW_MASK(0)         & IS_RED(turn)))
 
 #define RED 0
 #define BLK 1
@@ -247,7 +247,10 @@ const uint32_t POS_MASK[NUM_POS]     = { 0b00000000000000000000000000000001,
                                          0b10000000000000000000000000000000 };
 
 
-const uint32_t RED_INIT_POS_BM  = 0xFFF00000;
-const uint32_t BLK_INIT_POS_BM  = 0x00000FFF;
-const uint32_t KING_INIT_POS_BM = 0x00000000;
+//const uint32_t RED_INIT_POS_BM  = 0xFFF00000;
+//const uint32_t BLK_INIT_POS_BM  = 0x00000FFF;
+//const uint32_t KING_INIT_POS_BM = 0x00000000;
 
+#define RED_INIT_POS_BM    0xFFF00000;
+#define BLK_INIT_POS_BM    0x00000FFF;
+#define KING_INIT_POS_BM   0x00000000;

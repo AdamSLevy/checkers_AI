@@ -58,6 +58,8 @@
 
 #define IS_RED(turn)        (0xffFFffFF * !(turn))
 #define IS_BLK(turn)        (0xffFFffFF *  (turn))
+#define IS_TRUE(BOOL)       IS_BLK(BOOL)
+#define IS_FALSE(BOOL)      IS_RED(BOOL)
 
 // REMOVE THE GUESS WORK AND SAVE REDUNDANT CODE
 #define FORWD(turn, pos)        ((BLK_FORWD(pos)        & IS_BLK(turn)) | (RED_FORWD(pos)      & IS_RED(turn)))

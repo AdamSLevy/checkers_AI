@@ -11,6 +11,10 @@ using std::endl;
 int main(){
     CheckerBoard board(from_string("rrrrrrrbrbrr_bB_r____bb_bbbbbbbb",BLK));
 
+    cout << "blk:  " << board.m_bb.blk_pos << endl;
+    cout << "red:  " << board.m_bb.red_pos << endl;
+    cout << "king:  " << board.m_bb.king_pos << endl;
+
     size_t num_boards = 20;
     while ( num_boards > 0 ){
         board.gen_children();

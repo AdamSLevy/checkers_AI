@@ -9,9 +9,9 @@ using std::endl;
 #include "checkerboard.h"
 
 int main(){
-    CheckerBoard board(from_string("rrrrrrrbrbrr_bB_r____bb_bbbbbbbb",BLK));
+    CheckerBoard board(from_string("____r___bbb__R__bbr_r___br__R___",RED));
 
-    size_t num_boards = 20;
+    size_t num_boards = 5;
     while ( num_boards > 0 ){
         board.gen_children();
         CheckerBoard child;
@@ -19,8 +19,10 @@ int main(){
             cout << "parent: " << endl;
             print_bb(board.m_bb);
             cout << "children: " << endl;
+            size_t i = 1;
             for (auto b : board.m_children){
-                cout << to_string(board.m_bb) << endl;
+                cout << i++ << " : " << endl;
+                print_bb(b);
                 cout << to_string(b) << endl;
             }
             board = CheckerBoard(board.m_children[0]);

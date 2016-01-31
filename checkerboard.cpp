@@ -1,4 +1,4 @@
-// Release 0.1
+// Release 0.2
 // Adam Levy
 
 #include "checkerboard.h"
@@ -11,14 +11,6 @@ CheckerBoard::CheckerBoard(BitBoard bb) : m_bb(bb){};
 bool CheckerBoard::is_occupied( size_t pos_index )/*{{{*/
 {
     return POS_MASK[pos_index] & (m_bb.red_pos | m_bb.blk_pos);
-}/*}}}*/
-
-void CheckerBoard::test_is_occupied()/*{{{*/
-{
-    for (size_t i = 0; i < NUM_POS; i++){
-        cout << is_occupied(i);
-    }
-
 }/*}}}*/
 
 void print_board( const uint32_t board )/*{{{*/
@@ -81,10 +73,6 @@ void print_bb( const BitBoard & bb)/*{{{*/
 
 void CheckerBoard::gen_children()/*{{{*/
 {
-    //cout << "Parent: " << endl;
-    //print_bb(m_bb);
-    //cout << to_string(m_bb) << endl << endl;
-
     vector<BitBoard> jump_children = follow_jumps(m_bb);
 
     if (jump_children.size() > 0){
@@ -112,7 +100,6 @@ void CheckerBoard::gen_children()/*{{{*/
     uint32_t movers      = BCKWD(turn, empty) & play_pos & ~m_bb.king_pos;
     uint32_t king_movers = (BCKWD(turn, empty) | FORWD(turn, empty)) & play_pos & m_bb.king_pos;
 
-    //cout << "Children: " << endl;
     // generate child boards
     uint32_t movers_remaining      = movers;
     uint32_t king_movers_remaining = king_movers;
@@ -151,9 +138,6 @@ void CheckerBoard::gen_children()/*{{{*/
                             child.turn = !turn;
 
                             m_children.push_back(child);
-                            //cout << "child: " << endl;
-                            //print_bb(child);
-                            //cout << to_string(child) << endl << endl;
                         }
                     }
                     if(is_king){
@@ -182,8 +166,6 @@ bool BitBoard::operator==(const BitBoard &rhs) const {/*{{{*/
 vector<BitBoard> CheckerBoard::follow_jumps(const BitBoard & bb, uint32_t follow_mask)/*{{{*/
 {
     vector<BitBoard> children;
-    //cout << "Parent: " << endl;
-    //print_bb(bb);
 
     uint32_t play_pos;
     uint32_t oppo_pos;
@@ -200,50 +182,32 @@ vector<BitBoard> CheckerBoard::follow_jumps(const BitBoard & bb, uint32_t follow
 
     uint32_t occupied = (play_pos | oppo_pos);
     uint32_t empty = ~occupied;
+    uint32_t all_pieces_adj_to_opp = BCKWD(turn, oppo_pos) & play_pos &  follow_mask;
 
-    uint32_t jump_locations = 0;
-    uint32_t jumpers        = 0;
-    //uint32_t captured       = 0;
+    uint32_t pieces_adj_to_opp = all_pieces_adj_to_opp & ~bb.king_pos;
 
-    uint32_t pieces_adj_to_opp = BCKWD(turn, oppo_pos) & play_pos & ~bb.king_pos & follow_mask;
-    bool has_jumps = false;
-    if (pieces_adj_to_opp){
-        jump_locations = FORWD(turn, (FORWD(turn, pieces_adj_to_opp) & oppo_pos)) & FORWD_JUMP(turn, pieces_adj_to_opp) & empty;
-        if (jump_locations){
-            jumpers = BCKWD_JUMP(turn, jump_locations) & pieces_adj_to_opp & BCKWD(turn, (BCKWD(turn, jump_locations) & oppo_pos));
-            //if (jumpers){
-            //    captured = FORWD(turn, jumpers) & BCKWD(turn, jump_locations) & oppo_pos;
-                has_jumps = true;
-            //}
-        }
-    }
+    uint32_t jump_locations = FORWD(turn, (FORWD(turn, pieces_adj_to_opp) & oppo_pos)) 
+                            & FORWD_JUMP(turn, pieces_adj_to_opp) 
+                            & empty;
 
+    uint32_t jumpers = BCKWD_JUMP(turn, jump_locations) 
+                     & pieces_adj_to_opp 
+                     & BCKWD(turn, (BCKWD(turn, jump_locations) & oppo_pos));
 
+    uint32_t kings_adj_to_opp = all_pieces_adj_to_opp & bb.king_pos;
 
-    uint32_t king_jump_locations = 0;
-    uint32_t king_jumpers        = 0;
-    //uint32_t captured_by_king    = 0;
+    uint32_t king_jump_locations = (FORWD(turn, (FORWD(turn, kings_adj_to_opp) & oppo_pos)) 
+                                    | BCKWD(turn, (BCKWD(turn, kings_adj_to_opp) & oppo_pos))) 
+                                 & (FORWD_JUMP(turn, kings_adj_to_opp) | BCKWD_JUMP(turn, kings_adj_to_opp)) 
+                                 & empty;
 
-    uint32_t kings_adj_to_opp = (FORWD(turn, oppo_pos) | BCKWD(turn, oppo_pos)) & play_pos & bb.king_pos & follow_mask;
-    bool has_king_jumps = false;
-    if (kings_adj_to_opp){
-        king_jump_locations = (FORWD(turn, (FORWD(turn, kings_adj_to_opp) & oppo_pos)) | BCKWD(turn, (BCKWD(turn, kings_adj_to_opp) & oppo_pos))) 
-                              & (FORWD_JUMP(turn, kings_adj_to_opp) | BCKWD_JUMP(turn, kings_adj_to_opp)) & empty;
-        if (king_jump_locations){
-            king_jumpers = (FORWD_JUMP(turn, king_jump_locations) | BCKWD_JUMP(turn, king_jump_locations)) 
-                           & kings_adj_to_opp 
-                           & (FORWD(turn, (FORWD(turn, king_jump_locations) & oppo_pos))
-                                 | BCKWD(turn, (BCKWD(turn, king_jump_locations) & oppo_pos)));
-            //if (king_jumpers){
-            //    captured_by_king = (FORWD(turn, king_jumpers) | BACKWD(turn, king_jumpers))
-            //                           & (FORWD(turn, king_jump_locations) | BCKWD(turn, king_jump_locations))
-            //                           & oppo_pos;
-                has_king_jumps = true;
-            //}
-        }
-    }
+    uint32_t king_jumpers = (FORWD_JUMP(turn, king_jump_locations) 
+                             | BCKWD_JUMP(turn, king_jump_locations)) 
+                          & kings_adj_to_opp 
+                          & (FORWD(turn, (FORWD(turn, king_jump_locations) & oppo_pos))
+                             | BCKWD(turn, (BCKWD(turn, king_jump_locations) & oppo_pos)));
 
-    if (!(has_jumps || has_king_jumps)){
+    if (!(jumpers | king_jumpers)){
         return children;
     }
 
@@ -259,67 +223,43 @@ vector<BitBoard> CheckerBoard::follow_jumps(const BitBoard & bb, uint32_t follow
             for (int c = 0; c < 4; c++){
                 uint32_t j_piece = COL_MASK(c) & ROW_MASK(r) & (jumpers_remaining | king_jumpers_remaining);
                 if (j_piece){                           // MOVE FOUND: a valid jump can be made from r,c
-                    //cout << "print jump piece" << endl;
-                    //print_board(j_piece);
                     // find individual valid jump locations from here
                     uint32_t j_loc[4] = {0};        // individual jump locations from this piece
                     uint32_t j_cap[4] = {0};        // individual captured piece for the corresponding jump
                     if (c+1 < 4){
                         j_loc[0] = COL_MASK(c+1) & FORWD_JUMP(turn, j_piece) & FORWD(turn, (FORWD(turn, j_piece) & oppo_pos)) & empty;
-                        //cout << "print jump loc 0" << endl;
-                        //print_board(j_loc[0]);
                         if (j_loc[0]){
                             j_cap[0] = BCKWD(turn, j_loc[0]) & FORWD(turn, j_piece);
-                            //cout << "print capt loc 0" << endl;
-                            //print_board(j_cap[0]);
                         }
                     }
                     if (c-1 >= 0){
                         j_loc[1] = COL_MASK(c-1) & FORWD_JUMP(turn, j_piece) & FORWD(turn, (FORWD(turn, j_piece) & oppo_pos)) & empty;
-                        //cout << "print jump loc 1" << endl;
-                        //print_board(j_loc[1]);
                         if (j_loc[1]){
                             j_cap[1] = BCKWD(turn, j_loc[1]) & FORWD(turn, j_piece);
-                            //cout << "print capt loc 1" << endl;
-                            //print_board(j_cap[1]);
                         }
                     }
                     bool is_king = j_piece & king_jumpers_remaining;
                     if (is_king){
                         if (c+1 < 4){
                             j_loc[2] = COL_MASK(c+1) & BCKWD_JUMP(turn, j_piece) & BCKWD(turn, (BCKWD(turn, j_piece) & oppo_pos)) & empty;
-                            //cout << "print jump loc 2" << endl;
-                            //print_board(j_loc[2]);
                             if (j_loc[2]){
                                 j_cap[2] = FORWD(turn, j_loc[2]) & BCKWD(turn, j_piece);
-                                //cout << "print capt loc 2" << endl;
-                                //print_board(j_cap[2]);
                             }
                         }
                         if (c-1 >= 0){
                             j_loc[3] = COL_MASK(c-1) & BCKWD_JUMP(turn, j_piece) & BCKWD(turn, (BCKWD(turn, j_piece) & oppo_pos)) & empty;
-                            //cout << "print jump loc 3" << endl;
-                            //print_board(j_loc[3]);
                             if (j_loc[3]){
                                 j_cap[3] = FORWD(turn, j_loc[3]) & BCKWD(turn, j_piece);
-                                //cout << "print capt loc 3" << endl;
-                                //print_board(j_cap[3]);
                             }
                         }
                     }
                     // add new boards to children
                     for (int i = 0; i < 4; i++){
                         if (j_loc[i]){
-                            //cout << "id: " << i << endl;
                             BitBoard child = bb;
                             uint32_t new_play_pos = (play_pos & ~j_piece) | j_loc[i];   // remove j_piece and add it to j_loc[ation]
                             uint32_t new_oppo_pos = oppo_pos & ~j_cap[i];               // remove captured piece from opponent board
                             child.king_pos &= ~j_cap[i];
-                            //cout << "turn: " << turn << endl;
-                            //cout << "new_play_pos" << endl;
-                            //print_board(new_play_pos);
-                            //cout << "new_oppo_pos" << endl;
-                            //print_board(new_oppo_pos);
                             if (turn == BLK){
                                 child.blk_pos = new_play_pos;
                                 child.red_pos = new_oppo_pos;
@@ -330,8 +270,6 @@ vector<BitBoard> CheckerBoard::follow_jumps(const BitBoard & bb, uint32_t follow
                             if(is_king){
                                 child.king_pos &= ~j_piece;
                                 child.king_pos |= j_loc[i];
-                                //cout << "new king_pos: " << endl;
-                                //print_board(child.king_pos);
                             }
                             bool kinged = false;
                             if (!is_king && (KING_ME_ROW_MASK(turn) & j_loc[i])){                     // check for king_me
@@ -340,7 +278,7 @@ vector<BitBoard> CheckerBoard::follow_jumps(const BitBoard & bb, uint32_t follow
                             }
                             
                             vector<BitBoard> childs_children;
-                            if(!kinged){
+                            if(!kinged && new_oppo_pos){  // did not just get kinged && opponent still has pieces
                                 // find any subsequent jumps resulting from this bit board
                                 //      the follow mask is j_loc, the placed we moved to. Only jumps from this piece are valid
                                 childs_children = follow_jumps(child, j_loc[i]);
@@ -348,13 +286,7 @@ vector<BitBoard> CheckerBoard::follow_jumps(const BitBoard & bb, uint32_t follow
                             if (childs_children.size() == 0){
                                 child.turn = !turn;
                                 children.push_back(child);
-                                //cout << "jump only child" << endl;
-                                //print_bb(child);
-                                //cout << "jump child: " << endl;
-                                //print_bb(child);
-                                //cout << to_string(child) << endl << endl;
                             } else{
-                                //cout << "jump children" << endl;
                                 for ( auto c : childs_children ){
                                     if (childs_children.size() > 1){
                                         bool repeat = false;
@@ -369,10 +301,6 @@ vector<BitBoard> CheckerBoard::follow_jumps(const BitBoard & bb, uint32_t follow
                                         }
                                     }
                                     children.push_back(c);
-                                    //print_bb(c);
-                                    //cout << "jump child: " << endl;
-                                    //print_bb(child);
-                                    //cout << to_string(child) << endl << endl;
                                 }
                             }
                         }

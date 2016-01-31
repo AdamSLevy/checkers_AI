@@ -1,4 +1,4 @@
-// Release 0.1
+// Release 0.2
 // Adam Levy
 
 #include "bit_mask_init.h"
@@ -40,8 +40,6 @@ class CheckerBoard
         CheckerBoard(BitBoard);
         void gen_children();
         BitBoard m_bb;
-
-        void test_is_occupied();
 
         vector<BitBoard> m_children;
     private:

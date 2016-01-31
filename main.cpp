@@ -1,4 +1,4 @@
-// Release 0.1
+// Release 0.2
 // Adam Levy
 
 #include <iostream>

@@ -106,7 +106,7 @@ void CheckerBoard::gen_children()/*{{{*/
     for (size_t r = 0; r < 8; r++){
         if (ROW_MASK(r) & (movers_remaining | king_movers_remaining)){
             // MOVES ON THIS ROW
-            for (int c = 0; c < 4; c++){
+            for (size_t c = 0; c < 4; c++){
                 uint32_t p_piece = COL_MASK(c) & ROW_MASK(r) & (movers_remaining | king_movers_remaining);
                 if (p_piece){                           // MOVE FOUND: a valid move can be made from a piece on r,c
                     // find individual valid jump locations from here
@@ -119,7 +119,7 @@ void CheckerBoard::gen_children()/*{{{*/
                         p_loc[3] = BCKWD(turn, p_piece) & empty & ~p_loc[2];
                     }
                     // add new boards to children
-                    for (int i = 0; i < 4; i++){
+                    for (size_t i = 0; i < 4; i++){
                         if (p_loc[i]){
                             BitBoard child = m_bb;
                             uint32_t new_play_pos = (play_pos & ~p_piece) | p_loc[i];   // remove p_piece and add it to p_loc[ation]
@@ -327,8 +327,8 @@ string to_string( const BitBoard & bb )/*{{{*/
     s_board.resize(NUM_POS);
 
     for (int r = 7; r >= 0; r--){
-        for (int c = 0; c < 4; c++){
-            int i = r * 4 + c;
+        for (size_t c = 0; c < 4; c++){
+            size_t i = r * 4 + c;
             bool has_piece = POS_MASK[i] & (bb.red_pos | bb.blk_pos);
             string sym = "_";
 
@@ -369,7 +369,7 @@ BitBoard from_string( const string & s_board, bool turn )/*{{{*/
     size_t r = 7;
     size_t c = 0;
     for(size_t i = 0; i < NUM_POS; i++){
-        int p = r * 4 + c;
+        size_t p = r * 4 + c;
 
         char sym = s_board[i];
 

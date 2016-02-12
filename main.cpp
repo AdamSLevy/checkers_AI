@@ -6,12 +6,19 @@
 using std::cout;
 using std::endl;
 
-#include "checkerboard.h"
+//#include "checkerboard.h"
+#include "convnet.h"
 
 int main(){
     CheckerBoard board(from_string("____r___bbb__R__bbr_r___br__R___",RED));
 
-    size_t num_boards = 5;
+    BitBoard bb;
+
+    ConvNet cnn;
+
+    cnn.add_input(bb);
+
+    size_t num_boards = 0;
     while ( num_boards > 0 ){
         board.gen_children();
         CheckerBoard child;

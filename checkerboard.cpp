@@ -106,7 +106,7 @@ void CheckerBoard::gen_children()/*{{{*/
     for (size_t r = 0; r < 8; r++){
         if (ROW_MASK(r) & (movers_remaining | king_movers_remaining)){
             // MOVES ON THIS ROW
-            for (int c = 0; c < 4; c++){
+            for (size_t c = 0; c < 4; c++){
                 uint32_t p_piece = COL_MASK(c) & ROW_MASK(r) & (movers_remaining | king_movers_remaining);
                 if (p_piece){                           // MOVE FOUND: a valid move can be made from a piece on r,c
                     // find individual valid jump locations from here
@@ -119,7 +119,7 @@ void CheckerBoard::gen_children()/*{{{*/
                         p_loc[3] = BCKWD(turn, p_piece) & empty & ~p_loc[2];
                     }
                     // add new boards to children
-                    for (int i = 0; i < 4; i++){
+                    for (size_t i = 0; i < 4; i++){
                         if (p_loc[i]){
                             BitBoard child = m_bb;
                             uint32_t new_play_pos = (play_pos & ~p_piece) | p_loc[i];   // remove p_piece and add it to p_loc[ation]
@@ -220,19 +220,19 @@ vector<BitBoard> CheckerBoard::follow_jumps(const BitBoard & bb, uint32_t follow
     for (size_t r = 0; r < 8; r++){
         if (ROW_MASK(r) & (jumpers_remaining | king_jumpers_remaining)){
             // JUMPERS ON THIS ROW
-            for (int c = 0; c < 4; c++){
+            for (size_t c = 0; c < 4; c++){
                 uint32_t j_piece = COL_MASK(c) & ROW_MASK(r) & (jumpers_remaining | king_jumpers_remaining);
                 if (j_piece){                           // MOVE FOUND: a valid jump can be made from r,c
                     // find individual valid jump locations from here
                     uint32_t j_loc[4] = {0};        // individual jump locations from this piece
                     uint32_t j_cap[4] = {0};        // individual captured piece for the corresponding jump
-                    if (c+1 < 4){
+                    if (c < 3){
                         j_loc[0] = COL_MASK(c+1) & FORWD_JUMP(turn, j_piece) & FORWD(turn, (FORWD(turn, j_piece) & oppo_pos)) & empty;
                         if (j_loc[0]){
                             j_cap[0] = BCKWD(turn, j_loc[0]) & FORWD(turn, j_piece);
                         }
                     }
-                    if (c-1 >= 0){
+                    if (c > 0){
                         j_loc[1] = COL_MASK(c-1) & FORWD_JUMP(turn, j_piece) & FORWD(turn, (FORWD(turn, j_piece) & oppo_pos)) & empty;
                         if (j_loc[1]){
                             j_cap[1] = BCKWD(turn, j_loc[1]) & FORWD(turn, j_piece);
@@ -240,13 +240,13 @@ vector<BitBoard> CheckerBoard::follow_jumps(const BitBoard & bb, uint32_t follow
                     }
                     bool is_king = j_piece & king_jumpers_remaining;
                     if (is_king){
-                        if (c+1 < 4){
+                        if (c < 3){
                             j_loc[2] = COL_MASK(c+1) & BCKWD_JUMP(turn, j_piece) & BCKWD(turn, (BCKWD(turn, j_piece) & oppo_pos)) & empty;
                             if (j_loc[2]){
                                 j_cap[2] = FORWD(turn, j_loc[2]) & BCKWD(turn, j_piece);
                             }
                         }
-                        if (c-1 >= 0){
+                        if (c > 0){
                             j_loc[3] = COL_MASK(c-1) & BCKWD_JUMP(turn, j_piece) & BCKWD(turn, (BCKWD(turn, j_piece) & oppo_pos)) & empty;
                             if (j_loc[3]){
                                 j_cap[3] = FORWD(turn, j_loc[3]) & BCKWD(turn, j_piece);
@@ -254,7 +254,7 @@ vector<BitBoard> CheckerBoard::follow_jumps(const BitBoard & bb, uint32_t follow
                         }
                     }
                     // add new boards to children
-                    for (int i = 0; i < 4; i++){
+                    for (size_t i = 0; i < 4; i++){
                         if (j_loc[i]){
                             BitBoard child = bb;
                             uint32_t new_play_pos = (play_pos & ~j_piece) | j_loc[i];   // remove j_piece and add it to j_loc[ation]
@@ -327,8 +327,8 @@ string to_string( const BitBoard & bb )/*{{{*/
     s_board.resize(NUM_POS);
 
     for (int r = 7; r >= 0; r--){
-        for (int c = 0; c < 4; c++){
-            int i = r * 4 + c;
+        for (size_t c = 0; c < 4; c++){
+            size_t i = r * 4 + c;
             bool has_piece = POS_MASK[i] & (bb.red_pos | bb.blk_pos);
             string sym = "_";
 
@@ -369,7 +369,7 @@ BitBoard from_string( const string & s_board, bool turn )/*{{{*/
     size_t r = 7;
     size_t c = 0;
     for(size_t i = 0; i < NUM_POS; i++){
-        int p = r * 4 + c;
+        size_t p = r * 4 + c;
 
         char sym = s_board[i];
 

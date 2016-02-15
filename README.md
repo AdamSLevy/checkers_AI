@@ -5,7 +5,6 @@ The BitBoard struct is a memory efficient board representation using 3 uint32_t 
 
 ## Branch: feature/ffnn
 This branch features a fully connected Feed Forward Neural Network (FFNN) and a separate main function for timing (timing.cpp).
-This branch is intended to be the homework submission due on Monday February 15th, 2016 for CS405 at UAF.
 
 ## Build instructions
 The FFNN class depends on the Armadillo C++ matrix library. More information can be found at [http://arma.sourceforge.net/download.html](http://arma.sourceforge.net/download.html).

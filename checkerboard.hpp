@@ -56,3 +56,9 @@ void print_board( const uint32_t board );
 void print_bb( const BitBoard & bb);
 string to_string( const BitBoard & bb);
 BitBoard from_string( const string & s_board, bool turn );
+
+#include <armadillo>
+using arma::mat;
+using arma::rowvec;
+rowvec gen_input_mat(const BitBoard & bb);
+mat gen_input_mat(const vector<BitBoard> & vec_bb);

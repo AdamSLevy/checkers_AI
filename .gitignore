@@ -3,6 +3,7 @@
 *.o
 *.out
 checkers
+time
 *.asm
 
 # vim temp files #

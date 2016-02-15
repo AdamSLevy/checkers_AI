@@ -1,7 +1,44 @@
 // Release 0.2
 // Adam Levy
 
-#include "checkerboard.h"
+#include "checkerboard.hpp"
+
+rowvec gen_input_mat(const BitBoard & bb)
+{
+    uint32_t play_pos;
+    uint32_t oppo_pos;
+
+    if (bb.turn == BLK){
+        play_pos = bb.blk_pos;
+        oppo_pos = bb.red_pos;
+    } else{
+        play_pos = bb.red_pos;
+        oppo_pos = bb.blk_pos;
+    }
+
+    size_t i = 0;
+    rowvec input_row(32);
+    for (double &d : input_row){
+        uint32_t pos = POS_MASK[i++];
+        bool has_play_piece = pos & play_pos;
+        bool has_oppo_piece = pos & oppo_pos;
+        bool is_king        = pos & bb.king_pos;
+        d = ((1.0 * has_play_piece) + (-1.0 * has_oppo_piece)) * ((2.0 * is_king) + 1.0);
+    }
+
+    return input_row;
+}
+
+mat gen_input_mat(const vector<BitBoard> & vec_bb)
+{
+    mat input_mat(vec_bb.size(),32);
+
+    for (size_t r = 0; r < input_mat.n_rows; r++){
+        input_mat.row(r) = gen_input_mat(vec_bb[r]);
+    }
+
+    return input_mat;
+}
 
 CheckerBoard::CheckerBoard()/*{{{*/
 {}/*}}}*/

@@ -1,18 +1,40 @@
-#include "checkerboard.h"
-#include <armadillo>
+#include <vector>
+using std::vector;
 
-using namespace arma;
+#include <armadillo>
+using arma::mat;
+using arma::fill::randn;
+//using arma::fill::ones;
+
+#include "ThrowAssert.hpp"
+
 
 // Feed Forward Neural Net
 class FFNN
 {
     public:
-        FFNN(vector<size_t> net_layout);
+        FFNN(vector<size_t> net_layout);            // net_layout specifies the number of nodes 
+                                                    // in each layer. 
+                                                    // e.g. (32,100,20,1) creates a 4 layer net
+                                                    // with 32 inputs and 1 output
+                                                    // 32 -> 100 -> 20 -> 1
 
-        vector<mat> get_weights(size_t layer_id);
+        vector<mat> weights();                  // get all weight mats
+        mat         weights(size_t layer_id);   // get weight mat for layer_id
+        size_t      num_layers();
+        size_t      num_nodes(size_t layer_id);
+        mat         input();
+        mat         output();
+
+        void        set_input(mat in_mat);
+
+        void        forward_pass();
+        mat         forward_pass(mat input);
 
     private:
-        vector<mat> weight_mats;
+        vector<mat> weight_mats_;
+        mat         input_mat_;
+        mat         output_mat_;
 };
 
 

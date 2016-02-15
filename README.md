@@ -3,9 +3,11 @@ This project is a checkers representation and AI by Adam S. Levy, written for Pr
 The CheckerBoard class has member functions for generating possible moves from a given board state.
 The BitBoard struct is a memory efficient board representation using 3 uint32_t bit boards. 
 
-## Branch: feature/ffnn
+## Branch: cs405_HW1_2-15-16 ~~feature/ffnn~~
+This branch is intended to be the homework submission due on Monday February 15th, 2016 for CS405 at UAF. It is based on the branch feature/ffnn. 
+No further updates to this branch will be made after 5pm on the aforementioned date.
+
 This branch features a fully connected Feed Forward Neural Network (FFNN) and a separate main function for timing (timing.cpp).
-This branch is intended to be the homework submission due on Monday February 15th, 2016 for CS405 at UAF.
 
 ## Build instructions
 The FFNN class depends on the Armadillo C++ matrix library. More information can be found at [http://arma.sourceforge.net/download.html](http://arma.sourceforge.net/download.html).

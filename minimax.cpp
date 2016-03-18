@@ -9,14 +9,21 @@ BitBoard Minimax::evaluate(size_t depth)
     root_node.gen_children();
 
     // put the children in order according to ffnn
+    mat values = eval_nn.forward_pass(gen_input_mat(root_node.m_children));
+    arma::uvec order = sort_index(values.t(), "descend");
+
+    vector<BitBoard> ordered_children(root_node.m_children.size());
+    for (size_t i = 0; i < root_node.m_children.size(); i++){
+        ordered_children[i] = root_node.m_children[order[i]];
+    }
 
     double alpha = std::numeric_limits<double>::min();
     double  beta = std::numeric_limits<double>::max();
     double value = std::numeric_limits<double>::min();
 
-    BitBoard best_move = root_node.m_children.front();
+    BitBoard best_move = ordered_children.front();
 
-    for(BitBoard bb : root_node.m_children){
+    for (BitBoard bb : ordered_children){
         double old_value = value;
         value = std::max(value,
                 alphabeta(bb, depth - 1, alpha, beta));
@@ -59,9 +66,26 @@ double Minimax::alphabeta(BitBoard bb, size_t depth, double alpha, double beta)
         return eval_nn.forward_pass(gen_input_mat(bb))(0);
     }
 
-    if (bb.turn == root_node.m_bb.turn){
+    // put the children in order according to ffnn
+    mat values = eval_nn.forward_pass(gen_input_mat(cb.m_children));
+    arma::uvec order;
+
+    bool maximizing = (bb.turn == root_node.m_bb.turn);
+
+    if (maximizing){
+        order = sort_index(values.t(), "descend");
+    } else{
+        order = sort_index(values.t()); // ascend
+    }
+
+    vector<BitBoard> ordered_children(cb.m_children.size());
+    for (size_t i = 0; i < cb.m_children.size(); i++){
+        ordered_children[i] = cb.m_children[order[i]];
+    }
+
+    if (maximizing){
         double value = std::numeric_limits<double>::min();
-        for (BitBoard cc : cb.m_children){
+        for (BitBoard cc : ordered_children){
             value = std::max(value,
                     alphabeta(cc, depth - 1, alpha, beta));
             alpha = std::max(alpha, value);
@@ -73,7 +97,7 @@ double Minimax::alphabeta(BitBoard bb, size_t depth, double alpha, double beta)
         return value;
     } else{
         double value = std::numeric_limits<double>::max();
-        for (BitBoard cc : cb.m_children){
+        for (BitBoard cc : ordered_children){
             value = std::min(value,
                     alphabeta(cc, depth - 1, alpha, beta));
             beta = std::min(beta, value);

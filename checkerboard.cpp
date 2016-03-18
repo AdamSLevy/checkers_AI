@@ -110,12 +110,9 @@ void print_bb( const BitBoard & bb)/*{{{*/
 
 void CheckerBoard::gen_children()/*{{{*/
 {
-    vector<BitBoard> jump_children = follow_jumps(m_bb);
+    m_children = follow_jumps(m_bb);
 
-    if (jump_children.size() > 0){
-        for (auto jc : jump_children){
-            m_children.push_back(jc);
-        }
+    if (m_children.size() > 0){
         return;
     }
 

@@ -6,7 +6,7 @@
 using std::cout;
 using std::endl;
 
-#include "checkerboard.h"
+#include "checkerboard.hpp"
 
 int main(){
     CheckerBoard board(from_string("____r___bbb__R__bbr_r___br__R___",RED));

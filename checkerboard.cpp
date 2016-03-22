@@ -1,7 +1,7 @@
 // Release 0.2
 // Adam Levy
 
-#include "checkerboard.h"
+#include "checkerboard.hpp"
 
 CheckerBoard::CheckerBoard()/*{{{*/
 {}/*}}}*/

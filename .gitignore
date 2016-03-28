@@ -5,6 +5,10 @@
 checkers
 *.asm
 
+# qt temp files #
+##################
+*.autosave
+
 # vim temp files #
 ##################
 *.swp

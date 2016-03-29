@@ -33,10 +33,10 @@ struct BitBoard
     bool operator==( const BitBoard & ) const;
 };
 
-uint32_t movers(BitBoard const & bb, bool kings = false);
-uint32_t move_locations(BitBoard const & bb, bool kings = false);
-uint32_t jumpers(BitBoard const & bb, bool kings = false);
-uint32_t jump_locations(BitBoard const & bb, bool kings = false);
+uint32_t get_movers (BitBoard const & bb, bool kings = false);
+uint32_t get_jumpers(BitBoard const & bb, bool kings = false);
+uint32_t get_move_locations(BitBoard const & bb, bool kings = false, uint32_t move_mask = 0xffFFffFF);
+uint32_t get_jump_locations(BitBoard const & bb, bool kings = false, uint32_t move_mask = 0xffFFffFF);
 
 class CheckerBoard
 {

@@ -33,14 +33,19 @@ struct BitBoard
     bool operator==( const BitBoard & ) const;
 };
 
+uint32_t movers(BitBoard const & bb, bool kings = false);
+uint32_t move_locations(BitBoard const & bb, bool kings = false);
+uint32_t jumpers(BitBoard const & bb, bool kings = false);
+uint32_t jump_locations(BitBoard const & bb, bool kings = false);
+
 class CheckerBoard
 {
     public:
         CheckerBoard();
         CheckerBoard(BitBoard);
         void gen_children();
-        BitBoard m_bb;
 
+        BitBoard m_bb;
         vector<BitBoard> m_children;
     private:
         //CheckerBoard(const CheckerBoard &);

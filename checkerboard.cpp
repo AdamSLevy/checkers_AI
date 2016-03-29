@@ -3,6 +3,134 @@
 
 #include "checkerboard.hpp"
 
+uint32_t movers(BitBoard const & bb, bool kings)/*{{{*/
+{
+    uint32_t play_pos;
+    uint32_t oppo_pos;
+
+    if (bb.turn == BLK){
+        play_pos = bb.blk_pos;
+        oppo_pos = bb.red_pos;
+    } else{
+        play_pos = bb.red_pos;
+        oppo_pos = bb.blk_pos;
+    }
+    bool turn = bb.turn;
+
+    uint32_t occupied = (play_pos | oppo_pos);
+    uint32_t empty = ~occupied;
+
+    uint32_t movers      = BCKWD(turn, empty) & play_pos & ~bb.king_pos;
+    uint32_t king_movers = (BCKWD(turn, empty) | FORWD(turn, empty)) & play_pos & bb.king_pos;
+
+    return ((0xffFFffFF * !(kings)) & movers) | ((0xffFFffFF *  (kings)) & king_movers);
+}/*}}}*/
+
+uint32_t move_locations(const BitBoard &bb, bool kings)/*{{{*/
+{
+    uint32_t play_pos;
+    uint32_t oppo_pos;
+
+    if (bb.turn == BLK){
+        play_pos = bb.blk_pos;
+        oppo_pos = bb.red_pos;
+    } else{
+        play_pos = bb.red_pos;
+        oppo_pos = bb.blk_pos;
+    }
+    bool turn = bb.turn;
+
+    uint32_t occupied = (play_pos | oppo_pos);
+    uint32_t empty = ~occupied;
+
+    uint32_t movers      = BCKWD(turn, empty) & play_pos & ~bb.king_pos;
+    uint32_t move_locations = FORWD(turn, movers) & empty;
+    uint32_t king_movers = (BCKWD(turn, empty) | FORWD(turn, empty)) & play_pos & bb.king_pos;
+    uint32_t king_move_locations = (BCKWD(turn, king_movers) | FORWD(turn, king_movers)) & empty;
+
+    return ((0xffFFffFF * !(kings)) & move_locations) | ((0xffFFffFF *  (kings)) & king_move_locations);
+}/*}}}*/
+
+uint32_t jumpers(const BitBoard & bb, bool kings)/*{{{*/
+{
+    uint32_t play_pos;
+    uint32_t oppo_pos;
+
+    bool turn = bb.turn;
+
+    if (bb.turn == BLK){
+        play_pos = bb.blk_pos;
+        oppo_pos = bb.red_pos;
+    } else{
+        play_pos = bb.red_pos;
+        oppo_pos = bb.blk_pos;
+    }
+
+    uint32_t occupied = (play_pos | oppo_pos);
+    uint32_t empty = ~occupied;
+    uint32_t all_pieces_adj_to_opp = BCKWD(turn, oppo_pos) & play_pos &  follow_mask;
+
+    uint32_t pieces_adj_to_opp = all_pieces_adj_to_opp & ~bb.king_pos;
+
+    uint32_t jump_locations = FORWD(turn, (FORWD(turn, pieces_adj_to_opp) & oppo_pos))
+                            & FORWD_JUMP(turn, pieces_adj_to_opp)
+                            & empty;
+
+    uint32_t jumpers = BCKWD_JUMP(turn, jump_locations)
+                     & pieces_adj_to_opp
+                     & BCKWD(turn, (BCKWD(turn, jump_locations) & oppo_pos));
+
+    uint32_t kings_adj_to_opp = all_pieces_adj_to_opp & bb.king_pos;
+
+    uint32_t king_jump_locations = (FORWD(turn, (FORWD(turn, kings_adj_to_opp) & oppo_pos))
+                                    | BCKWD(turn, (BCKWD(turn, kings_adj_to_opp) & oppo_pos)))
+                                 & (FORWD_JUMP(turn, kings_adj_to_opp) | BCKWD_JUMP(turn, kings_adj_to_opp))
+                                 & empty;
+
+    uint32_t king_jumpers = (FORWD_JUMP(turn, king_jump_locations)
+                             | BCKWD_JUMP(turn, king_jump_locations))
+                          & kings_adj_to_opp
+                          & (FORWD(turn, (FORWD(turn, king_jump_locations) & oppo_pos))
+                             | BCKWD(turn, (BCKWD(turn, king_jump_locations) & oppo_pos)));
+
+    return ((0xffFFffFF * !(kings)) & jumpers) | ((0xffFFffFF *  (kings)) & king_jumpers);
+}/*}}}*/
+
+uint32_t jump_locations(const BitBoard &bb, bool kings)/*{{{*/
+{
+    uint32_t play_pos;
+    uint32_t oppo_pos;
+
+    bool turn = bb.turn;
+
+    if (bb.turn == BLK){
+        play_pos = bb.blk_pos;
+        oppo_pos = bb.red_pos;
+    } else{
+        play_pos = bb.red_pos;
+        oppo_pos = bb.blk_pos;
+    }
+
+    uint32_t occupied = (play_pos | oppo_pos);
+    uint32_t empty = ~occupied;
+    uint32_t all_pieces_adj_to_opp = BCKWD(turn, oppo_pos) & play_pos &  follow_mask;
+
+    uint32_t pieces_adj_to_opp = all_pieces_adj_to_opp & ~bb.king_pos;
+
+    uint32_t jump_locations = FORWD(turn, (FORWD(turn, pieces_adj_to_opp) & oppo_pos))
+                            & FORWD_JUMP(turn, pieces_adj_to_opp)
+                            & empty;
+
+    uint32_t kings_adj_to_opp = all_pieces_adj_to_opp & bb.king_pos;
+
+    uint32_t king_jump_locations = (FORWD(turn, (FORWD(turn, kings_adj_to_opp) & oppo_pos))
+                                    | BCKWD(turn, (BCKWD(turn, kings_adj_to_opp) & oppo_pos)))
+                                 & (FORWD_JUMP(turn, kings_adj_to_opp) | BCKWD_JUMP(turn, kings_adj_to_opp))
+                                 & empty;
+
+    return ((0xffFFffFF * !(kings)) & jump_locations) | ((0xffFFffFF *  (kings)) & king_jump_locations);
+}/*}}}*/
+
 CheckerBoard::CheckerBoard()/*{{{*/
 {}/*}}}*/
 
@@ -106,8 +234,8 @@ void CheckerBoard::gen_children()/*{{{*/
             for (size_t c = 0; c < 4; c++){
                 uint32_t p_piece = COL_MASK(c) & ROW_MASK(r) & (movers_remaining | king_movers_remaining);
                 if (p_piece){                           // MOVE FOUND: a valid move can be made from a piece on r,c
-                    // find individual valid jump locations from here
-                    uint32_t p_loc[4] = {0};        // individual jump locations from this piece
+                    // find individual valid move locations from here
+                    uint32_t p_loc[4] = {0};        // individual move locations from this piece
                     p_loc[0] = FORWD_4(turn, p_piece) & empty;
                     p_loc[1] = FORWD(turn, p_piece) & empty & ~p_loc[0];
                     bool is_king = p_piece & king_movers_remaining;
@@ -152,6 +280,7 @@ void CheckerBoard::gen_children()/*{{{*/
     }
 
 }/*}}}*/
+
 
 bool BitBoard::operator==(const BitBoard &rhs) const {/*{{{*/
     return (red_pos == rhs.red_pos &&
@@ -388,3 +517,6 @@ BitBoard from_string( const string & s_board, bool turn )/*{{{*/
     }
     return bb;
 }/*}}}*/
+
+
+

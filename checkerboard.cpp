@@ -3,33 +3,7 @@
 
 #include "checkerboard.hpp"
 
-rowvec gen_input_mat(const BitBoard & bb)/*{{{*/
-{
-    size_t i = 0;
-    rowvec input_row(32);
-    for (double &d : input_row){
-        uint32_t pos = POS_MASK[i++];
-        bool has_play_piece = pos & play_pos;
-        bool has_oppo_piece = pos & oppo_pos;
-        bool is_king        = pos & bb.king_pos;
-        d = ((1.0 * has_play_piece) + (-1.0 * has_oppo_piece)) * ((2.0 * is_king) + 1.0);
-    }
-
-    return input_row;
-}/*}}}*/
-
-mat gen_input_mat(const vector<BitBoard> & vec_bb)/*{{{*/
-{
-    mat input_mat(vec_bb.size(),32);
-
-    for (size_t r = 0; r < input_mat.n_rows; r++){
-        input_mat.row(r) = gen_input_mat(vec_bb[r]);
-    }
-
-    return input_mat;
-}/*}}}*/
-
-uint32_t movers(BitBoard const & bb, bool kings)/*{{{*/
+uint32_t get_movers(BitBoard const & bb, bool kings)/*{{{*/
 {
     uint32_t play_pos;
     uint32_t oppo_pos;
@@ -52,7 +26,7 @@ uint32_t movers(BitBoard const & bb, bool kings)/*{{{*/
     return ((0xffFFffFF * !(kings)) & movers) | ((0xffFFffFF *  (kings)) & king_movers);
 }/*}}}*/
 
-uint32_t move_locations(const BitBoard &bb, bool kings)/*{{{*/
+uint32_t get_move_locations(const BitBoard &bb, bool kings, uint32_t move_mask)/*{{{*/
 {
     uint32_t play_pos;
     uint32_t oppo_pos;
@@ -69,15 +43,15 @@ uint32_t move_locations(const BitBoard &bb, bool kings)/*{{{*/
     uint32_t occupied = (play_pos | oppo_pos);
     uint32_t empty = ~occupied;
 
-    uint32_t movers      = BCKWD(turn, empty) & play_pos & ~bb.king_pos;
+    uint32_t movers      = BCKWD(turn, empty) & play_pos & ~bb.king_pos & move_mask;
     uint32_t move_locations = FORWD(turn, movers) & empty;
-    uint32_t king_movers = (BCKWD(turn, empty) | FORWD(turn, empty)) & play_pos & bb.king_pos;
+    uint32_t king_movers = (BCKWD(turn, empty) | FORWD(turn, empty)) & play_pos & bb.king_pos & move_mask;
     uint32_t king_move_locations = (BCKWD(turn, king_movers) | FORWD(turn, king_movers)) & empty;
 
     return ((0xffFFffFF * !(kings)) & move_locations) | ((0xffFFffFF *  (kings)) & king_move_locations);
 }/*}}}*/
 
-uint32_t jumpers(const BitBoard & bb, bool kings)/*{{{*/
+uint32_t get_jumpers(const BitBoard & bb, bool kings)/*{{{*/
 {
     uint32_t play_pos;
     uint32_t oppo_pos;
@@ -94,7 +68,7 @@ uint32_t jumpers(const BitBoard & bb, bool kings)/*{{{*/
 
     uint32_t occupied = (play_pos | oppo_pos);
     uint32_t empty = ~occupied;
-    uint32_t all_pieces_adj_to_opp = BCKWD(turn, oppo_pos) & play_pos &  follow_mask;
+    uint32_t all_pieces_adj_to_opp = BCKWD(turn, oppo_pos) & play_pos;
 
     uint32_t pieces_adj_to_opp = all_pieces_adj_to_opp & ~bb.king_pos;
 
@@ -122,7 +96,7 @@ uint32_t jumpers(const BitBoard & bb, bool kings)/*{{{*/
     return ((0xffFFffFF * !(kings)) & jumpers) | ((0xffFFffFF *  (kings)) & king_jumpers);
 }/*}}}*/
 
-uint32_t jump_locations(const BitBoard &bb, bool kings)/*{{{*/
+uint32_t get_jump_locations(const BitBoard &bb, bool kings, uint32_t move_mask)/*{{{*/
 {
     uint32_t play_pos;
     uint32_t oppo_pos;
@@ -139,7 +113,7 @@ uint32_t jump_locations(const BitBoard &bb, bool kings)/*{{{*/
 
     uint32_t occupied = (play_pos | oppo_pos);
     uint32_t empty = ~occupied;
-    uint32_t all_pieces_adj_to_opp = BCKWD(turn, oppo_pos) & play_pos &  follow_mask;
+    uint32_t all_pieces_adj_to_opp = BCKWD(turn, oppo_pos) & play_pos & move_mask;
 
     uint32_t pieces_adj_to_opp = all_pieces_adj_to_opp & ~bb.king_pos;
 
@@ -155,6 +129,32 @@ uint32_t jump_locations(const BitBoard &bb, bool kings)/*{{{*/
                                  & empty;
 
     return ((0xffFFffFF * !(kings)) & jump_locations) | ((0xffFFffFF *  (kings)) & king_jump_locations);
+}/*}}}*/
+
+rowvec gen_input_mat(const BitBoard & bb)/*{{{*/
+{
+    size_t i = 0;
+    rowvec input_row(32);
+    for (double &d : input_row){
+        uint32_t pos = POS_MASK[i++];
+        bool has_play_piece = pos & play_pos;
+        bool has_oppo_piece = pos & oppo_pos;
+        bool is_king        = pos & bb.king_pos;
+        d = ((1.0 * has_play_piece) + (-1.0 * has_oppo_piece)) * ((2.0 * is_king) + 1.0);
+    }
+
+    return input_row;
+}/*}}}*/
+
+mat gen_input_mat(const vector<BitBoard> & vec_bb)/*{{{*/
+{
+    mat input_mat(vec_bb.size(),32);
+
+    for (size_t r = 0; r < input_mat.n_rows; r++){
+        input_mat.row(r) = gen_input_mat(vec_bb[r]);
+    }
+
+    return input_mat;
 }/*}}}*/
 
 CheckerBoard::CheckerBoard()/*{{{*/

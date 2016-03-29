@@ -38,6 +38,9 @@ uint32_t get_jumpers(BitBoard const & bb, bool kings = false);
 uint32_t get_move_locations(BitBoard const & bb, bool kings = false, uint32_t move_mask = 0xffFFffFF);
 uint32_t get_jump_locations(BitBoard const & bb, bool kings = false, uint32_t move_mask = 0xffFFffFF);
 
+vector<BitBoard> gen_children(const BitBoard & bb);
+vector<BitBoard> follow_jumps(const BitBoard & bb, uint32_t follow_mask = 0xffFFffFF);
+
 class CheckerBoard
 {
     public:

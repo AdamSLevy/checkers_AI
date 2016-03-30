@@ -6,15 +6,15 @@ BitBoard Minimax::evaluate(size_t depth)
         depth = max_depth;
     }
 
-    root_node.gen_children();
+    vector<BitBoard> children = gen_children(root_node);
 
     // put the children in order according to ffnn
-    mat values = eval_nn.forward_pass(gen_input_mat(root_node.m_children));
+    mat values = eval_nn.forward_pass(gen_input_mat(children));
     arma::uvec order = sort_index(values.t(), "descend");
 
-    vector<BitBoard> ordered_children(root_node.m_children.size());
-    for (size_t i = 0; i < root_node.m_children.size(); i++){
-        ordered_children[i] = root_node.m_children[order[i]];
+    vector<BitBoard> ordered_children(children.size());
+    for (size_t i = 0; i < children.size(); i++){
+        ordered_children[i] = children[order[i]];
     }
 
     double alpha = std::numeric_limits<double>::min();
@@ -44,7 +44,7 @@ BitBoard Minimax::evaluate(size_t depth)
 
 void Minimax::set_board(BitBoard bb)
 {
-    root_node = CheckerBoard(bb);
+    root_node = bb;
 }
 
 
@@ -58,19 +58,18 @@ void Minimax::set_max_depth(size_t depth)
 
 double Minimax::alphabeta(BitBoard bb, size_t depth, double alpha, double beta)
 {
-    CheckerBoard cb(bb);
-    cb.gen_children();
+    vector<BitBoard> children = gen_children(bb);
+
     // order children
-    
-    if (depth == 0 || cb.m_children.empty()){
+    if (depth == 0 || children.empty()){
         return eval_nn.forward_pass(gen_input_mat(bb))(0);
     }
 
     // put the children in order according to ffnn
-    mat values = eval_nn.forward_pass(gen_input_mat(cb.m_children));
+    mat values = eval_nn.forward_pass(gen_input_mat(children));
     arma::uvec order;
 
-    bool maximizing = (bb.turn == root_node.m_bb.turn);
+    bool maximizing = (bb.turn == root_node.turn);
 
     if (maximizing){
         order = sort_index(values.t(), "descend");
@@ -78,9 +77,9 @@ double Minimax::alphabeta(BitBoard bb, size_t depth, double alpha, double beta)
         order = sort_index(values.t()); // ascend
     }
 
-    vector<BitBoard> ordered_children(cb.m_children.size());
-    for (size_t i = 0; i < cb.m_children.size(); i++){
-        ordered_children[i] = cb.m_children[order[i]];
+    vector<BitBoard> ordered_children(children.size());
+    for (size_t i = 0; i < children.size(); i++){
+        ordered_children[i] = children[order[i]];
     }
 
     if (maximizing){
@@ -109,5 +108,4 @@ double Minimax::alphabeta(BitBoard bb, size_t depth, double alpha, double beta)
         return value;
     }
 }
-
 

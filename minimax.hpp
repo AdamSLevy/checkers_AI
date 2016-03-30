@@ -11,9 +11,9 @@ class Minimax
     public:
         Minimax();
         Minimax(BitBoard bb, FFNN e_nn, size_t depth = MAX_DEPTH)
-            : root_node(CheckerBoard(bb)), eval_nn(e_nn), max_depth(depth){};
+            : root_node(bb), eval_nn(e_nn), max_depth(depth){};
         Minimax(CheckerBoard cb, FFNN e_nn, size_t depth = MAX_DEPTH)
-            : root_node(cb), eval_nn(e_nn), max_depth(depth){};
+            : root_node(cb.m_bb), eval_nn(e_nn), max_depth(depth){};
 
         BitBoard evaluate(size_t depth = 0);                // depth = 0, defaults to max_depth
 
@@ -21,7 +21,7 @@ class Minimax
         void set_max_depth(size_t depth);
 
     private:
-        CheckerBoard root_node;
+        BitBoard root_node;
         FFNN eval_nn;
         size_t max_depth;
 

@@ -366,12 +366,29 @@ vector<BitBoard> follow_jumps(const BitBoard & bb, uint32_t follow_mask)/*{{{*/
     return children;
 }/*}}}*/
 
-rowvec gen_input_mat(const BitBoard & bb)/*{{{*/
+BitBoard rotate180(BitBoard bb)
+{
+    BitBoard rot_bb;
+
+    rot_bb.red_pos  = 0;
+    rot_bb.blk_pos  = 0;
+    rot_bb.king_pos = 0;
+
+    for(size_t i = 0; i < 32; i++){
+        rot_bb.red_pos  |= POS_MASK[32-i] & (0xffFFffFF * (bool)(POS_MASK[i] &  bb.red_pos));
+        rot_bb.blk_pos  |= POS_MASK[32-i] & (0xffFFffFF * (bool)(POS_MASK[i] &  bb.blk_pos));
+        rot_bb.king_pos |= POS_MASK[32-i] & (0xffFFffFF * (bool)(POS_MASK[i] & bb.king_pos));
+    }
+
+    return rot_bb;
+}
+
+rowvec gen_input_mat(const BitBoard & bb, bool player)/*{{{*/
 {
     uint32_t play_pos;
     uint32_t oppo_pos;
 
-    if (bb.turn == BLK){
+    if (player == BLK){
         play_pos = bb.blk_pos;
         oppo_pos = bb.red_pos;
     } else{
@@ -385,18 +402,18 @@ rowvec gen_input_mat(const BitBoard & bb)/*{{{*/
         bool has_play_piece = pos & play_pos;
         bool has_oppo_piece = pos & oppo_pos;
         bool is_king        = pos & bb.king_pos;
-        d = ((1.0 * has_play_piece) + (-1.0 * has_oppo_piece)) * ((2.0 * is_king) + 1.0);
+        d = ((1.0 * has_play_piece) + (-1.0 * has_oppo_piece)) * ((1.0 * is_king) + 1.0);
     }
 
     return input_row;
 }/*}}}*/
 
-mat gen_input_mat(const vector<BitBoard> & vec_bb)/*{{{*/
+mat gen_input_mat(const vector<BitBoard> & vec_bb, bool player)/*{{{*/
 {
     mat input_mat(vec_bb.size(),32);
 
     for (size_t r = 0; r < input_mat.n_rows; r++){
-        input_mat.row(r) = gen_input_mat(vec_bb[r]);
+        input_mat.row(r) = gen_input_mat(vec_bb[r], player);
     }
 
     return input_mat;

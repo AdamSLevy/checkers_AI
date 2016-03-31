@@ -38,6 +38,8 @@ uint32_t get_jumpers(BitBoard const & bb, bool kings = false);
 uint32_t get_move_locations(BitBoard const & bb, bool kings = false, uint32_t move_mask = 0xffFFffFF);
 uint32_t get_jump_locations(BitBoard const & bb, bool kings = false, uint32_t move_mask = 0xffFFffFF);
 
+BitBoard rotate180(BitBoard bb);
+
 vector<BitBoard> gen_children(const BitBoard & bb);
 vector<BitBoard> follow_jumps(const BitBoard & bb, uint32_t follow_mask = 0xffFFffFF);
 
@@ -68,5 +70,5 @@ BitBoard from_string( const string & s_board, bool turn );
 #include <armadillo>
 using arma::mat;
 using arma::rowvec;
-rowvec gen_input_mat(const BitBoard & bb);
-mat gen_input_mat(const vector<BitBoard> & vec_bb);
+rowvec gen_input_mat(const BitBoard & bb, bool player);
+mat gen_input_mat(const vector<BitBoard> & vec_bb, bool player);

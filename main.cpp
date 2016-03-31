@@ -19,12 +19,32 @@ int main(){
 
 
     BitBoard bb;
-    Minimax mm(bb, nn, 2);
+    Minimax mm(bb, nn, 10);
+    size_t moves = 1;
 
     BitBoard move = mm.evaluate();
 
     print_bb(bb);
+
     print_bb(move);
+    cout << "num visited " << mm.get_num_visited() << endl;
+    cout << "num pruned " << mm.get_num_pruned() << endl;
+
+    bool has_move = true;
+    while(has_move){
+        moves++;
+        mm.set_root_node(move);
+        move = mm.evaluate();
+        print_bb(move);
+        cout << "num visited " << mm.get_num_visited() << endl;
+        cout << "num pruned " << mm.get_num_pruned() << endl;
+        if (move.turn == BLK){
+            has_move = move.blk_pos;
+        } else{
+            has_move = move.red_pos;
+        }
+    }
+    cout << "moves " << moves << endl;
 
     return 0;
 }

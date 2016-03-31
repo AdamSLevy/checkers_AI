@@ -17,13 +17,17 @@ class Minimax
 
         BitBoard evaluate(size_t depth = 0);                // depth = 0, defaults to max_depth
 
-        void set_board(BitBoard bb);
+        void set_root_node(BitBoard bb);
         void set_max_depth(size_t depth);
+        size_t get_num_pruned(){return num_pruned;}
+        size_t get_num_visited(){return num_visited;}
 
     private:
         BitBoard root_node;
         FFNN eval_nn;
         size_t max_depth;
+        size_t num_pruned;
+        size_t num_visited;
 
         double alphabeta(BitBoard bb, size_t depth, double alpha, double beta);
 };

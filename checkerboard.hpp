@@ -1,5 +1,7 @@
 // Release 0.2
 // Adam Levy
+#ifndef CHECKERBOARD
+#define CHECKERBOARD
 
 #include "bit_mask_init.h"
 
@@ -65,3 +67,5 @@ void print_board( const uint32_t board );
 void print_bb( const BitBoard & bb);
 string to_string( const BitBoard & bb);
 BitBoard from_string( const string & s_board, bool turn );
+
+#endif

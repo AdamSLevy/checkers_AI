@@ -2,35 +2,41 @@
 // Adam Levy
 
 #include <iostream>
+#include <random>
 
 using std::cout;
 using std::endl;
 
 #include "checkerboard.hpp"
 
-int main(){
-    CheckerBoard board(from_string("____r___bbb__R__bbr_r___br__R___",RED));
+typedef std::default_random_engine def_rand_eng;
+typedef std::uniform_int_distribution<int> unif_dist;
 
-    size_t num_boards = 5;
-    while ( num_boards > 0 ){
-        board.gen_children();
-        CheckerBoard child;
-        if (board.m_children.size() > 0){
-            cout << "parent: " << endl;
-            print_bb(board.m_bb);
-            cout << "children: " << endl;
-            size_t i = 1;
-            for (auto b : board.m_children){
-                cout << i++ << " : " << endl;
-                print_bb(b);
-                cout << to_string(b) << endl;
-            }
-            board = CheckerBoard(board.m_children[0]);
+int main(){
+    def_rand_eng gen;
+
+    BitBoard move;
+    size_t moves = 1;
+
+    cout << "0: " << endl;
+    print_bb(move);
+
+    bool has_move = true;
+    while(has_move){
+        auto children = gen_children(move);
+        unif_dist dist(0,children.size() - 1);
+        int rand_index = dist(gen);
+        move = children[rand_index];
+        moves++;
+        cout << moves << ": " << endl;
+        print_bb(move);
+        if (move.turn == BLK){
+            has_move = move.blk_pos;
         } else{
-            break;
+            has_move = move.red_pos;
         }
-        num_boards--;
     }
+    cout << "moves " << moves << endl;
 
     return 0;
 }

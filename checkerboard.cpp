@@ -524,12 +524,18 @@ void CheckerBoard::gen_children()/*{{{*/
 
 
 bool BitBoard::operator==(const BitBoard &rhs) const {/*{{{*/
-    return (red_pos == rhs.red_pos &&
-            blk_pos == rhs.blk_pos &&
+    return ( red_pos == rhs.red_pos  &&
+             blk_pos == rhs.blk_pos  &&
             king_pos == rhs.king_pos &&
-            turn == rhs.turn);
+                turn == rhs.turn);
 }/*}}}*/
 
+bool BitBoard::operator!=(const BitBoard &rhs) const {/*{{{*/
+    return ( red_pos != rhs.red_pos  ||
+             blk_pos != rhs.blk_pos  ||
+            king_pos != rhs.king_pos ||
+                turn != rhs.turn);
+}/*}}}*/
 vector<BitBoard> CheckerBoard::follow_jumps(const BitBoard & bb, uint32_t follow_mask)/*{{{*/
 {
     vector<BitBoard> children;

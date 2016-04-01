@@ -34,6 +34,7 @@ struct BitBoard
     uint32_t king_pos = KING_INIT_POS_BM;
     bool turn = FIRST_TURN;
     bool operator==( const BitBoard & ) const;
+    bool operator!=( const BitBoard & ) const;
 };
 
 size_t bit_count(uint32_t i);

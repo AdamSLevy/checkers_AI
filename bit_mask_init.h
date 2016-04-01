@@ -1,3 +1,6 @@
+#ifndef BIT_MASK_INIT
+#define BIT_MASK_INIT
+
 // Release 0.1
 // Adam Levy
 
@@ -254,3 +257,5 @@ const uint32_t POS_MASK[NUM_POS]     = { 0b00000000000000000000000000000001,
 #define RED_INIT_POS_BM    0xFFF00000;
 #define BLK_INIT_POS_BM    0x00000FFF;
 #define KING_INIT_POS_BM   0x00000000;
+
+#endif

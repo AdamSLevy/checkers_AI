@@ -1,3 +1,6 @@
+#ifndef CHECKERBOARD
+#define CHECKERBOARD
+
 // Release 0.2
 // Adam Levy
 
@@ -73,3 +76,5 @@ using arma::mat;
 using arma::rowvec;
 rowvec gen_input_mat(const BitBoard & bb, bool player);
 mat gen_input_mat(const vector<BitBoard> & vec_bb, bool player);
+
+#endif // CHECKERBOARD

@@ -33,6 +33,7 @@ struct BitBoard
     bool operator==( const BitBoard & ) const;
 };
 
+size_t bit_count(uint32_t i);
 uint32_t get_movers (BitBoard const & bb, bool kings = false);
 uint32_t get_jumpers(BitBoard const & bb, bool kings = false);
 uint32_t get_move_locations(BitBoard const & bb, bool kings = false, uint32_t move_mask = 0xffFFffFF);

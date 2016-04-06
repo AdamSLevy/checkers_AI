@@ -85,7 +85,6 @@ BitBoard Minimax_static::evaluate(size_t depth)
             }
         }
     }
-    */
 
     cout << "initial values" << endl;
     cout << values << endl;
@@ -103,6 +102,7 @@ BitBoard Minimax_static::evaluate(size_t depth)
     
     cout << "turn " << turnString << endl;
     cout << "best value " << best_value << endl;
+    */
     return best_move;
 }
 

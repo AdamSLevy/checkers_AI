@@ -1,6 +1,8 @@
 CXX=g++
 CXXFLAGS=-Wall -std=c++11
 
+cudnn: main.cu
+	nvcc main.cu -L/usr/local/cuda/lib -lcudnn
 checkers: main.o checkerboard.o
 	g++ main.o checkerboard.o -o checkers
 main.o: checkerboard.o

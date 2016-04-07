@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <stdio.h>
 
 #include <sys/stat.h>
 
@@ -44,14 +45,46 @@ bool fileExists(const char* file) {
     return (stat(file, &buf) == 0);
 }
 
+#define RAW_BOARD_BYTES    (4*3)
+#define BOARD_TENSOR_FLOATS (8*8*3)
+
+#include "checkerboard.hpp"
+
+void printBoardTensor(float * boardTensor)
+{
+    for (int c = 0; c < 3; c++){
+        string board_out;
+        for (int h = 0; h < 8; h++){
+            string row;
+            for (int w = 0; w < 8; w++){
+                int float_id = c * 8 * 8 + h * 8 + w;
+                float ff = boardTensor[float_id];
+                string value = " *** ";
+                if (ff == 1.0f){
+                    value = " 1.0 ";
+                }
+                row += value;
+            }
+            row += "\n";
+            board_out = row + board_out;
+        }
+        cout << board_out << endl;
+    }
+}
+
+__constant__ uint32_t POS_MASK_D[32];
+
 __global__ void raw_game_to_tensor(uint32_t * raw_game, float * game_tensor, size_t num_boards)
 {
-    size_t board_id = blockIdx.x * gridDim.x + threadIdx.x * blockDim.x + threadIdx.y;
-    if (board_id >= num_boards * 3){
+    size_t board_id = blockIdx.x * (blockDim.x * blockDim.y) + threadIdx.x;     // A board consists of 3 uint32_t bitboards
+    if (board_id >= num_boards){
         return;
     }
 
-    uint32_t board = raw_game[board_id];
+    size_t bitboard_id = board_id * 3 + threadIdx.y;
+    size_t tensor_id_start = bitboard_id * (8 * 8);      // A uint32_t bitboard translates to an 8*8 sparse matrix of floats
+
+    uint32_t board = raw_game[bitboard_id];
 
     for (size_t bit = 0; bit < 32; bit++){
         size_t fvalue_id;
@@ -64,14 +97,18 @@ __global__ void raw_game_to_tensor(uint32_t * raw_game, float * game_tensor, siz
             fvalue_id = bit * 2 + 1;
             fzero_id  = bit * 2;
         }
-
-
+        float value = 0.0f;
+        if (board & POS_MASK_D[bit]){
+            value = 1.0f;
+        }
+        game_tensor[tensor_id_start + fvalue_id] = value;
+        game_tensor[tensor_id_start + fzero_id]  = 0.0f;
     }
 }
 
 int main()
 {
-    // READ IN FILE/*{{{*/
+    // READ IN FILE
     std::ifstream infile;
 
     // Create file name
@@ -131,15 +168,25 @@ int main()
     w_cols = 8;
     size_t num_game_tensor_floats = num_uint * h_rows * w_cols;
     float * d_game_tensor;
-	checkCudaErrors(cudaMalloc(&d_game_tensor, num_game_tensor_floats * sizeof(float)));/*}}}*/
+	checkCudaErrors(cudaMalloc(&d_game_tensor, num_game_tensor_floats * sizeof(float)));
+
+    // Copy POS_MASK
+	checkCudaErrors(cudaMemcpyToSymbol(POS_MASK_D, POS_MASK, 32 * sizeof(uint32_t), size_t(0), cudaMemcpyHostToDevice));
 
     // Generate game tensor
-    size_t num_blocks = num_uint / 1024;
-    dim3 threadsPerBlock(1024/3,3);
+    size_t num_blocks = num_uint / 1024 + 1;
+    dim3 threadsPerBlock(1024/3, 3);
     raw_game_to_tensor<<<num_blocks,threadsPerBlock>>>(d_raw_game, d_game_tensor, n_boards);
-
 	checkCudaErrors(cudaDeviceSynchronize());
 
+    // Copy game tensor data to host
+    size_t nb = 3;
+    float boardTensor[BOARD_TENSOR_FLOATS * nb];
+    checkCudaErrors(cudaMemcpy(boardTensor, d_game_tensor, nb * BOARD_TENSOR_FLOATS * sizeof(float), cudaMemcpyDeviceToHost));
+
+    for(int i = 0; i < nb; i++){
+        printBoardTensor(boardTensor + i * BOARD_TENSOR_FLOATS);
+    }
 
     // Free memory
 	checkCudaErrors(cudaFree(d_raw_game));

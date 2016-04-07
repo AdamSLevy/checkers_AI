@@ -39,10 +39,10 @@ using std::cout;/*}}}*/
     }                                                                  \
 } while(0)/*}}}*/
 
-bool fileExists(const char* file) {
+bool fileExists(const char* file) {/*{{{*/
     struct stat buf;
     return (stat(file, &buf) == 0);
-}
+}/*}}}*/
 
 #define RAW_BOARD_BYTES    (4*3)
 #define BOARD_TENSOR_FLOATS (8*8*3)
@@ -81,25 +81,7 @@ struct GameStat/*{{{*/
 };/*}}}*/
 #pragma pack(pop)
 
-__global__ void gen_label_tensor(float * label_tensor, bool win)/*{{{*/
-{
-    size_t num_moves = blockDim.x;
-    size_t game_id = threadIdx.x;
-
-    if (game_id == 0){
-        label_tensor[0] = 0.0f;
-        return;
-    }
-
-    float value = ((float)(game_id + 1)) / num_moves;
-    if (!win){
-        value *= -1.0f;
-    }
-
-    label_tensor[game_id] = value;
-}/*}}}*/
-
-__global__ void raw_game_to_tensor(uint32_t * raw_game, float * game_tensor, size_t num_boards)/*{{{*/
+__global__ void gen_180_raw_game(uint32_t * raw_game, uint32_t * raw_game_180, size_t num_boards)/*{{{*/
 {
     size_t board_id = blockIdx.x * (blockDim.x * blockDim.y) + threadIdx.x;     // A board consists of 3 uint32_t bitboards
     if (board_id >= num_boards){
@@ -107,9 +89,58 @@ __global__ void raw_game_to_tensor(uint32_t * raw_game, float * game_tensor, siz
     }
 
     size_t bitboard_id = board_id * 3 + threadIdx.y;
-    size_t tensor_id_start = bitboard_id * (8 * 8);      // A uint32_t bitboard translates to an 8*8 sparse matrix of floats
 
-    uint32_t board = raw_game[bitboard_id];
+    size_t bitboard180_id;
+    if(threadIdx.y == 0){
+        bitboard180_id = board_id * 3 + 1;
+    } else if (threadIdx.y == 1){
+        bitboard180_id = board_id * 3;
+    } else{
+        bitboard180_id = board_id * 3 + 2;
+    }
+
+    uint32_t bitboard = raw_game[bitboard_id];
+    uint32_t bitboard180 = 0;
+
+    for (int i = 0; i < 32; i++){
+        if (bitboard & POS_MASK_D[i]){
+            bitboard180 |= POS_MASK_D[31 - i];
+        }
+    }
+
+    raw_game_180[bitboard180_id] = bitboard180;
+}/*}}}*/
+
+__global__ void gen_label_tensor(float * label_tensor, bool win)/*{{{*/
+{
+    size_t num_moves = blockDim.x;
+    size_t game_id = threadIdx.x * 2;
+
+    float value = ((float)(threadIdx.x)) / (num_moves - 1);
+    if (!win){
+        value *= -1.0f;
+    }
+
+    label_tensor[game_id] = value;
+    label_tensor[game_id + 1] = -1.0f * value;
+}/*}}}*/
+
+__global__ void raw_game_to_tensor(uint32_t * raw_game, uint32_t * raw_game_180, float * game_tensor, size_t num_boards)/*{{{*/
+{
+    size_t board_id = blockIdx.x * (blockDim.x * blockDim.y) + threadIdx.x;     // A board consists of 3 uint32_t bitboards
+    if (board_id >= num_boards){
+        return;
+    }
+
+    size_t bitboard_id = board_id * 3 + threadIdx.y;
+    size_t tensor_id_start = ((board_id * 2 + threadIdx.z) * 3 + threadIdx.y) * (8 * 8);      // A uint32_t bitboard translates to an 8*8 sparse matrix of floats
+
+    uint32_t board;
+    if (threadIdx.z == 0){
+        board = raw_game[bitboard_id];
+    } else{
+        board = raw_game_180[bitboard_id];
+    }
 
     for (size_t bit = 0; bit < 32; bit++){
         size_t fvalue_id;
@@ -202,11 +233,24 @@ int main()/*{{{*/
 
     // Allocate mem on device/*{{{*/
     uint32_t * d_raw_game;
+    uint32_t * d_180_raw_game;
 	checkCudaErrors(cudaMalloc(&d_raw_game, num_uint * sizeof(uint32_t)));
+	checkCudaErrors(cudaMalloc(&d_180_raw_game, num_uint * sizeof(uint32_t)));
     /*}}}*/
 
     // Copy raw game data to device/*{{{*/
     checkCudaErrors(cudaMemcpy(d_raw_game, raw_game, num_uint * sizeof(uint32_t), cudaMemcpyHostToDevice));
+    /*}}}*/
+
+    // Copy pos_mask/*{{{*/
+	checkCudaErrors(cudaMemcpyToSymbol(POS_MASK_D, POS_MASK, 32 * sizeof(uint32_t), size_t(0), cudaMemcpyHostToDevice));
+    /*}}}*/
+
+    // Generate 180 games/*{{{*/
+    size_t num_blocks = num_uint / 1024 + 1;
+    dim3 threadsPerBlock(1024/3, 3);
+    gen_180_raw_game<<<num_blocks, threadsPerBlock>>>(d_raw_game, d_180_raw_game, num_uint / 3);
+	checkCudaErrors(cudaDeviceSynchronize());
     /*}}}*/
 
     // Allocate mem for game tensor and label tensor/*{{{*/
@@ -218,31 +262,26 @@ int main()/*{{{*/
     size_t num_game_tensor_floats = num_uint * h_rows * w_cols;
     float * d_game_tensor;
     float * d_label_tensor;
-	checkCudaErrors(cudaMalloc(&d_game_tensor, num_game_tensor_floats * sizeof(float)));
-	checkCudaErrors(cudaMalloc(&d_label_tensor, n_boards * sizeof(float)));
-    /*}}}*/
-
-    // Copy pos_mask/*{{{*/
-	checkCudaErrors(cudaMemcpyToSymbol(POS_MASK_D, POS_MASK, 32 * sizeof(uint32_t), size_t(0), cudaMemcpyHostToDevice));
+	checkCudaErrors(cudaMalloc(&d_game_tensor, 2 * num_game_tensor_floats * sizeof(float)));
+	checkCudaErrors(cudaMalloc(&d_label_tensor, 2 * n_boards * sizeof(float)));
     /*}}}*/
 
     // generate game and label tensor/*{{{*/
-    size_t num_blocks = num_uint / 1024 + 1;
-    dim3 threadsPerBlock(1024/3, 3);
-    raw_game_to_tensor<<<num_blocks,threadsPerBlock>>>(d_raw_game, d_game_tensor, n_boards);
+    num_blocks = num_uint / 1024 + 1;
+    threadsPerBlock = dim3(1024/6, 3, 2);
+    raw_game_to_tensor<<<num_blocks,threadsPerBlock>>>(d_raw_game, d_180_raw_game, d_game_tensor, n_boards);
 
     size_t num_moves = 0;
     for (size_t i = 0; i < 100; i++){
-        float * start_label = d_label_tensor + num_moves;
+        float * start_label = d_label_tensor + 2 * num_moves;
         num_moves += gstat[i].num_moves;
         gen_label_tensor<<<1,gstat[i].num_moves>>>(start_label, gstat[i].win);
     }
-
 	checkCudaErrors(cudaDeviceSynchronize());
     /*}}}*/
 
     // Copy game tensor data to host/*{{{*/
-    size_t nb = gstat[0].num_moves;
+    size_t nb = gstat[0].num_moves * 2;
     float boardTensor[BOARD_TENSOR_FLOATS * nb];
     float labels[nb];
     checkCudaErrors(cudaMemcpy(boardTensor, d_game_tensor, nb * BOARD_TENSOR_FLOATS * sizeof(float), cudaMemcpyDeviceToHost));
@@ -252,18 +291,16 @@ int main()/*{{{*/
     // Print out tensor board/*{{{*/
     for(int i = 0; i < nb; i++){
         printBoardTensor(boardTensor + i * BOARD_TENSOR_FLOATS);
-    }
-
-    size_t i = 0;
-    for(float f : labels)
-    {
-        cout << i++ << ": " << f << endl;
+        float f = labels[i];
+        cout << i/2 << ": " << f << endl << endl;
     }
     /*}}}*/
 
     // Free memory/*{{{*/
 	checkCudaErrors(cudaFree(d_raw_game));
+	checkCudaErrors(cudaFree(d_180_raw_game));
 	checkCudaErrors(cudaFree(d_game_tensor));
+	checkCudaErrors(cudaFree(d_label_tensor));
     /*}}}*/
 
     exit(0);

@@ -143,8 +143,8 @@ void gen_100gamedata()
             win = true;
         }
 
-        print_bb(move);
-        cout << win << endl;
+        //print_bb(move);
+        //cout << win << endl;
 
         write_game(infofile, win, game_moves);
     }

@@ -26,6 +26,26 @@ int write_board(std::ofstream & of, const BitBoard & bb)
     return -1;
 }
 
+#pragma pack(push, 1)
+struct GameStat
+{
+    bool win = false;
+    uint8_t num_moves = 0;
+};
+#pragma pack(pop)
+
+int write_game(std::ofstream & of, const bool & win, const size_t & num_moves)
+{
+    GameStat gstat;
+    gstat.win = win;
+    gstat.num_moves = num_moves;
+    of.write((char *)(&gstat), sizeof(GameStat));
+    if (of.good()){
+        return 0;
+    }
+    return -1;
+}
+
 bool fileExists(const char* file) {
     struct stat buf;
     return (stat(file, &buf) == 0);
@@ -33,21 +53,27 @@ bool fileExists(const char* file) {
 
 void gen_100gamedata()
 {
-    std::ofstream outfile;
+    std::ofstream binfile;
+    std::ofstream infofile;
     static size_t file_num = 0;
-    char str[40];
-    sprintf(str, "./game_data/games%04lu.bin", file_num++);
-    while (fileExists(str)){
-        sprintf(str, "./game_data/games%04lu.bin", file_num++);
+    char str1[40];
+    char str2[40];
+    sprintf(str1, "./game_data/games%04lu.bin", file_num);
+    sprintf(str2, "./game_data/games%04lu.info", file_num++);
+    while (fileExists(str1) || fileExists(str2)){
+        sprintf(str1, "./game_data/games%04lu.bin", file_num);
+        sprintf(str2, "./game_data/games%04lu.info", file_num++);
     }
 
-    outfile.open(str, std::ios::out | std::ios::binary);
+    binfile.open(str1, std::ios::out | std::ios::binary);
+    infofile.open(str2, std::ios::out | std::ios::binary);
 
-    if (!outfile.is_open()){
+    if (!binfile.is_open() || !infofile.is_open()){
         cout << "Failed to open file" << endl;
         exit(1);
     } else{
-        cout << str << endl;
+        cout << str1 << endl;
+        cout << str2 << endl;
     }
 
     size_t red_win = 0;
@@ -60,6 +86,7 @@ void gen_100gamedata()
     size_t num_eval = 0;
 
     for (size_t game = 0; game < 100; game++){
+        size_t game_moves = 0;
         BitBoard move;
         Minimax_static mm(move, 15);
         unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -78,7 +105,8 @@ void gen_100gamedata()
                 num_children += children.size();
                 num_eval++;
                 if (children.size()){
-                    write_board(outfile, move);
+                    write_board(binfile, move);
+                    game_moves++;
                     unif_dist udist(0,children.size() - 1);
                     int rand_index = udist(gen);
                     move = children[rand_index];
@@ -93,7 +121,8 @@ void gen_100gamedata()
                 mm.set_root_node(move);
                 BitBoard newMove = mm.evaluate(10);
                 if (newMove != move){
-                    write_board(outfile, move);
+                    write_board(binfile, move);
+                    game_moves++;
                     moves++;
                     move = newMove;
                     //cout << moves << ": " << "minimax" << endl;
@@ -104,11 +133,20 @@ void gen_100gamedata()
             }
         }
         cout << endl;
+
+        bool win;
         if (move.turn == BLK){
             red_win++;
+            win = false;
         } else{
             blk_win++;
+            win = true;
         }
+
+        print_bb(move);
+        cout << win << endl;
+
+        write_game(infofile, win, game_moves);
     }
 
     cout << "Game Data Summary" << endl;
@@ -125,7 +163,8 @@ void gen_100gamedata()
     cout << "% Red Wins: " << rw << endl;
     cout << endl;
 
-    outfile.close();
+    binfile.close();
+    infofile.close();
 }
 
 int main(){

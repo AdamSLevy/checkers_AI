@@ -74,6 +74,19 @@ void printBoardTensor(float * boardTensor)
 
 __constant__ uint32_t POS_MASK_D[32];
 
+#pragma pack(push, 1)
+struct GameStat
+{
+    bool win = false;
+    uint8_t num_moves = 0;
+};
+#pragma pack(pop)
+
+__global__ void game_stat_to_tensor(GameStat * gstat, float * label_tensor, size_t num_boards)
+{
+
+}
+
 __global__ void raw_game_to_tensor(uint32_t * raw_game, float * game_tensor, size_t num_boards)
 {
     size_t board_id = blockIdx.x * (blockDim.x * blockDim.y) + threadIdx.x;     // A board consists of 3 uint32_t bitboards

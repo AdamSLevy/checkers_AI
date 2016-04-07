@@ -30,7 +30,7 @@ int write_board(std::ofstream & of, const BitBoard & bb)
 struct GameStat
 {
     bool win = false;
-    uint8_t num_moves = 0;
+    uint16_t num_moves = 0;
 };
 #pragma pack(pop)
 

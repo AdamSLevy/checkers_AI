@@ -256,24 +256,24 @@ int main()/*{{{*/
     // Allocate mem for game tensor and label tensor/*{{{*/
     int n_boards, c_bitboards, h_rows, w_cols;
     c_bitboards = 3;
-    n_boards = num_uint / c_bitboards;
+    n_boards = 2 * num_uint / c_bitboards;
     h_rows = 8;
     w_cols = 8;
-    size_t num_game_tensor_floats = num_uint * h_rows * w_cols;
-    float * d_game_tensor;
-    float * d_label_tensor;
-	checkCudaErrors(cudaMalloc(&d_game_tensor, 2 * num_game_tensor_floats * sizeof(float)));
-	checkCudaErrors(cudaMalloc(&d_label_tensor, 2 * n_boards * sizeof(float)));
+    size_t num_game_tensor_floats = 2 * num_uint * h_rows * w_cols;
+    float * d_game_data;
+    float * d_label_data;
+	checkCudaErrors(cudaMalloc(&d_game_data, num_game_tensor_floats * sizeof(float)));
+	checkCudaErrors(cudaMalloc(&d_label_data, n_boards * sizeof(float)));
     /*}}}*/
 
     // generate game and label tensor/*{{{*/
     num_blocks = num_uint / 1024 + 1;
     threadsPerBlock = dim3(1024/6, 3, 2);
-    raw_game_to_tensor<<<num_blocks,threadsPerBlock>>>(d_raw_game, d_180_raw_game, d_game_tensor, n_boards);
+    raw_game_to_tensor<<<num_blocks,threadsPerBlock>>>(d_raw_game, d_180_raw_game, d_game_data, n_boards/2);
 
     size_t num_moves = 0;
     for (size_t i = 0; i < 100; i++){
-        float * start_label = d_label_tensor + 2 * num_moves;
+        float * start_label = d_label_data + 2 * num_moves;
         num_moves += gstat[i].num_moves;
         gen_label_tensor<<<1,gstat[i].num_moves>>>(start_label, gstat[i].win);
     }
@@ -284,8 +284,8 @@ int main()/*{{{*/
     size_t nb = gstat[0].num_moves * 2;
     float boardTensor[BOARD_TENSOR_FLOATS * nb];
     float labels[nb];
-    checkCudaErrors(cudaMemcpy(boardTensor, d_game_tensor, nb * BOARD_TENSOR_FLOATS * sizeof(float), cudaMemcpyDeviceToHost));
-    checkCudaErrors(cudaMemcpy(labels, d_label_tensor, nb * sizeof(float), cudaMemcpyDeviceToHost));
+    checkCudaErrors(cudaMemcpy(boardTensor, d_game_data, nb * BOARD_TENSOR_FLOATS * sizeof(float), cudaMemcpyDeviceToHost));
+    checkCudaErrors(cudaMemcpy(labels, d_label_data, nb * sizeof(float), cudaMemcpyDeviceToHost));
     /*}}}*/
 
     // Print out tensor board/*{{{*/
@@ -296,40 +296,56 @@ int main()/*{{{*/
     }
     /*}}}*/
 
-    // Free memory/*{{{*/
-	checkCudaErrors(cudaFree(d_raw_game));
-	checkCudaErrors(cudaFree(d_180_raw_game));
-	checkCudaErrors(cudaFree(d_game_tensor));
-	checkCudaErrors(cudaFree(d_label_tensor));
-    /*}}}*/
-
-    exit(0);
-
-    // CUDNN SCRATCH/*{{{*/
+    // CUDNN version check/*{{{*/
     size_t version = cudnnGetVersion();
     if(version/1000 != 4){
         cout << "Not cuDNN v4" << endl;
         cout << "version: " << version << endl;
     }
+    /*}}}*/
 
+    // Create cudnn context/*{{{*/
     cudnnHandle_t handle;
     checkCUDNN(cudnnCreate(&handle));
+    /*}}}*/
 
-    cudnnTensorDescriptor_t tensor;
-
-    checkCUDNN(cudnnCreateTensorDescriptor(&tensor));
-    checkCUDNN(cudnnSetTensor4dDescriptor(tensor,
+    // Create input tensor descriptor/*{{{*/
+    cudnnTensorDescriptor_t game_tensor;
+    checkCUDNN(cudnnCreateTensorDescriptor(&game_tensor));
+    checkCUDNN(cudnnSetTensor4dDescriptor(game_tensor,
                                             CUDNN_TENSOR_NCHW,
                                             CUDNN_DATA_FLOAT,
                                             n_boards,
                                             c_bitboards,
                                             h_rows,
                                             w_cols));
+    /*}}}*/
 
+    // Create output tensor descriptor/*{{{*/
+    cudnnTensorDescriptor_t label_tensor;
+    checkCUDNN(cudnnCreateTensorDescriptor(&label_tensor));
+    checkCUDNN(cudnnSetTensor4dDescriptor(label_tensor,
+                                            CUDNN_TENSOR_NCHW,
+                                            CUDNN_DATA_FLOAT,
+                                            n_boards,
+                                            1,
+                                            1,
+                                            1));
+    /*}}}*/
 
+    // Create Convolution descriptor
     
-    checkCUDNN(cudnnDestroyTensorDescriptor(tensor));
+    // Clean up cudnn/*{{{*/
+    checkCUDNN(cudnnDestroyTensorDescriptor(game_tensor));
+    checkCUDNN(cudnnDestroyTensorDescriptor(label_tensor));
     checkCUDNN(cudnnDestroy(handle));
+    /*}}}*/
+
+    // Free memory/*{{{*/
+	checkCudaErrors(cudaFree(d_raw_game));
+	checkCudaErrors(cudaFree(d_180_raw_game));
+	checkCudaErrors(cudaFree(d_game_data));
+	checkCudaErrors(cudaFree(d_label_data));
     /*}}}*/
 
     return 0;

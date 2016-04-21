@@ -1,5 +1,5 @@
-#include <cudnn.h>/*{{{*/
-
+//#include "lenet.cu"
+/*{{{*/
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -281,72 +281,37 @@ int main()/*{{{*/
     /*}}}*/
 
     // Copy game tensor data to host/*{{{*/
-    size_t nb = gstat[0].num_moves * 2;
-    float boardTensor[BOARD_TENSOR_FLOATS * nb];
-    float labels[nb];
-    checkCudaErrors(cudaMemcpy(boardTensor, d_game_data, nb * BOARD_TENSOR_FLOATS * sizeof(float), cudaMemcpyDeviceToHost));
-    checkCudaErrors(cudaMemcpy(labels, d_label_data, nb * sizeof(float), cudaMemcpyDeviceToHost));
+    float * boardTensor = new float[num_game_tensor_floats];
+    float * labels = new float[n_boards];
+    checkCudaErrors(cudaMemcpy(boardTensor, d_game_data, num_game_tensor_floats * sizeof(float), cudaMemcpyDeviceToHost));
+    checkCudaErrors(cudaMemcpy(labels, d_label_data, n_boards * sizeof(float), cudaMemcpyDeviceToHost));
     /*}}}*/
 
-    // Print out tensor board/*{{{*/
-    for(int i = 0; i < nb; i++){
-        printBoardTensor(boardTensor + i * BOARD_TENSOR_FLOATS);
-        float f = labels[i];
-        cout << i/2 << ": " << f << endl << endl;
+    cout << "Device to Host copy" << endl;
+
+    std::ofstream gdata_bin;
+    std::ofstream label_bin;
+
+    // Create file name
+    char str3[40];
+    char str4[40];
+    sprintf(str3, "./game_data/gdata%04lu.bin", file_num);
+    sprintf(str4, "./game_data/label%04lu.bin", file_num);
+
+    // Open and error checking
+    gdata_bin.open(str3, std::ios::out | std::ios::binary);
+    label_bin.open(str4, std::ios::out | std::ios::binary);
+    if (!gdata_bin.is_open() || !label_bin.is_open()){
+        cout << "Failed to open file" << endl;
+        cout << "Exiting" << endl;
+        exit(1);
+    } else{
+        cout << str3 << endl;
+        cout << str4 << endl;
     }
-    /*}}}*/
 
-    // CUDNN version check/*{{{*/
-    size_t version = cudnnGetVersion();
-    if(version/1000 != 4){
-        cout << "Not cuDNN v4" << endl;
-        cout << "version: " << version << endl;
-    }
-    /*}}}*/
-
-    // Create cudnn context/*{{{*/
-    cudnnHandle_t handle;
-    checkCUDNN(cudnnCreate(&handle));
-    /*}}}*/
-
-    // Create input tensor descriptor/*{{{*/
-    cudnnTensorDescriptor_t game_tensor;
-    checkCUDNN(cudnnCreateTensorDescriptor(&game_tensor));
-    checkCUDNN(cudnnSetTensor4dDescriptor(game_tensor,
-                                            CUDNN_TENSOR_NCHW,
-                                            CUDNN_DATA_FLOAT,
-                                            n_boards,
-                                            c_bitboards,
-                                            h_rows,
-                                            w_cols));
-    /*}}}*/
-
-    // Create output tensor descriptor/*{{{*/
-    cudnnTensorDescriptor_t label_tensor;
-    checkCUDNN(cudnnCreateTensorDescriptor(&label_tensor));
-    checkCUDNN(cudnnSetTensor4dDescriptor(label_tensor,
-                                            CUDNN_TENSOR_NCHW,
-                                            CUDNN_DATA_FLOAT,
-                                            n_boards,
-                                            1,
-                                            1,
-                                            1));
-    /*}}}*/
-
-    // Create Convolution descriptor
-    
-    // Clean up cudnn/*{{{*/
-    checkCUDNN(cudnnDestroyTensorDescriptor(game_tensor));
-    checkCUDNN(cudnnDestroyTensorDescriptor(label_tensor));
-    checkCUDNN(cudnnDestroy(handle));
-    /*}}}*/
-
-    // Free memory/*{{{*/
-	checkCudaErrors(cudaFree(d_raw_game));
-	checkCudaErrors(cudaFree(d_180_raw_game));
-	checkCudaErrors(cudaFree(d_game_data));
-	checkCudaErrors(cudaFree(d_label_data));
-    /*}}}*/
+    gdata_bin.write((char *) boardTensor, num_game_tensor_floats * sizeof(float));
+    label_bin.write((char *) labels, n_boards * sizeof(float));
 
     return 0;
 }/*}}}*/

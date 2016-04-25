@@ -26,7 +26,6 @@ struct Piece
     size_t  pos_index;
 };
 
-
 struct BitBoard
 {
     uint32_t red_pos  = RED_INIT_POS_BM;

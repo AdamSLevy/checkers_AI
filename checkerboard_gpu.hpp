@@ -9,6 +9,7 @@
 #include <thrust/device_vector.h>
 using thrust::device_vector;
 
+#define BB_PRE_ALLOC 30
 struct BitBoard_gpu
 {
     uint32_t red_pos  = RED_INIT_POS_BM;

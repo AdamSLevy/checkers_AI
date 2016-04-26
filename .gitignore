@@ -3,6 +3,7 @@
 *.o
 *.out
 checkers
+play_game
 *.asm
 
 # qt temp files #

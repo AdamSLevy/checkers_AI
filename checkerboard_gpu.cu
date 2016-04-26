@@ -3,8 +3,6 @@
 
 #include "checkerboard_gpu.hpp"
 
-#define BB_PRE_ALLOC 25
-
 __device__ bool BitBoard_gpu::operator==(const BitBoard_gpu &rhs) const {/*{{{*/
     return ( red_pos == rhs.red_pos  &&
              blk_pos == rhs.blk_pos  &&

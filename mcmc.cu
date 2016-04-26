@@ -1,63 +1,19 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>
-#include <sstream>
-//#include <curand.h>
-#include <cuda.h>
-#include <curand_kernel.h>
-#include <chrono>
-#include <ctime>
-#include "checkerboard_gpu.hpp"
-
-using std::endl;
-using std::cout;
-
-// Error handling/*{{{*/
-// Adapted from the CUDNN classification code 
-// sample: https://developer.nvidia.com/cuDNN
-
-#define FatalError(s) do {                                             \
-    std::stringstream _where, _message;                                \
-    _where << __FILE__ << ':' << __LINE__;                             \
-    _message << std::string(s) + "\n" << __FILE__ << ':' << __LINE__;  \
-    std::cerr << _message.str() << "\nAborting...\n";                  \
-    cudaDeviceReset();                                                 \
-    exit(1);                                                           \
-} while(0)
-
-#define checkCUDNN(status) do {                                        \
-    std::stringstream _error;                                          \
-    if (status != CUDNN_STATUS_SUCCESS) {                              \
-      _error << "CUDNN failure: " << cudnnGetErrorString(status);      \
-      FatalError(_error.str());                                        \
-    }                                                                  \
-} while(0)
-
-#define checkCudaErrors(status) do {                                   \
-    std::stringstream _error;                                          \
-    if (status != 0) {                                                 \
-      _error << "Cuda failure: " << status;                            \
-      FatalError(_error.str());                                        \
-    }                                                                  \
-} while(0)/*}}}*/
-
-using std::chrono::system_clock;
+#include "mcmc.h"
 
 __constant__ uint32_t POS_MASK_D[32];
 
-__global__ void setup_kernel(curandState *state, unsigned long long r_offset)
+__global__ void setup_kernel(curandState *state, ullong r_offset)
 {
-    unsigned long long idx = threadIdx.x + blockDim.x * (blockIdx.x * gridDim.y + blockIdx.y);
-    unsigned long long sequence = threadIdx.x;
-    unsigned long long seed = (idx + 1) * r_offset;
+    ullong idx = threadIdx.x + blockDim.x * (blockIdx.x * gridDim.y + blockIdx.y);
+    ullong sequence = threadIdx.x;
+    ullong seed = (idx + 1) * r_offset;
     curand_init(seed, sequence, r_offset, &state[idx]);
 }
 
-#define MAX_MOVES 200
 __global__ void random_descent( curandState * state, 
-        BitBoard_gpu * d_bb, unsigned long long * d_wins)
+        BitBoard_gpu * d_bb, ullong * d_wins, bool player)
 {
-    __shared__ unsigned long long wins;
+    __shared__ ullong wins;
     if (threadIdx.x == 0){
         wins = 0;
     }
@@ -67,18 +23,13 @@ __global__ void random_descent( curandState * state,
     curandState localState = state[idx];
 
     BitBoard_gpu bb = *(d_bb + blockIdx.x);
-    bool player = bb.turn;  // SWITCH BACK TO !
 
     auto children = gen_children_gpu(bb);
     size_t n_moves = 0;
-    size_t max_b = 0;
     float frand;
     while(children.size && n_moves < MAX_MOVES){
         n_moves++;
         size_t b = children.size;
-        if (b > max_b){
-            max_b = b;
-        }
         frand = curand_uniform(&localState);
         int irand = frand * b;
 
@@ -87,7 +38,7 @@ __global__ void random_descent( curandState * state,
         children = gen_children_gpu(bb);
     }
 
-    bool winner = bb.turn;
+    bool winner = !bb.turn;
     if (children.size > 0){
         delete [] children.bb_ary;
         winner = !player;
@@ -112,12 +63,9 @@ __global__ void random_descent( curandState * state,
         }
     }
             
-    if (winner == player && n_moves < MAX_MOVES){
-        //printf("%llu moves\n%llu max\nWinner\n", n_moves, max_b);
+    if (winner == player){
         atomicAdd(&wins, 1);
-    } //else{
-        //printf("%llu moves\n%llu max\nLoser\n", n_moves, max_b);
-    //}
+    }
 
     state[idx] = localState;
     __syncthreads();
@@ -126,6 +74,7 @@ __global__ void random_descent( curandState * state,
     }
 }
 
+/*
 int main(int argc, char *argv[])
 {
     int num_repeat = 15;
@@ -175,3 +124,4 @@ int main(int argc, char *argv[])
     cudaFree(d_wins);
     cudaFree(d_board);
 }
+*/

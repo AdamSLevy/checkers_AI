@@ -695,7 +695,7 @@ vector<BitBoard> CheckerBoard::follow_jumps(const BitBoard & bb, uint32_t follow
 string to_string( const BitBoard & bb )/*{{{*/
 {
     string s_board;
-    s_board.resize(NUM_POS);
+    //s_board.resize(NUM_POS);
 
     for (int r = 7; r >= 0; r--){
         for (size_t c = 0; c < 4; c++){

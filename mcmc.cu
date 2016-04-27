@@ -24,6 +24,11 @@ __global__ void random_descent( curandState * state,
 
     BitBoard_gpu bb = *(d_bb + blockIdx.x);
 
+    BitBoard_gpu parent;
+    BitBoard_gpu gparent;
+    gparent.red_pos = 0;
+    gparent.blk_pos = 0;
+
     auto children = gen_children_gpu(bb);
     size_t n_moves = 0;
     float frand;
@@ -33,7 +38,25 @@ __global__ void random_descent( curandState * state,
         frand = curand_uniform(&localState);
         int irand = frand * b;
 
-        bb = children.bb_ary[irand];
+        BitBoard_gpu cc = children.bb_ary[irand];
+
+        // Cycle detection
+        if ((cc.king_pos ^ bb.king_pos) && (parent.king_pos ^ gparent.king_pos)){
+            if (bb.turn == BLK){
+                if ((cc.blk_pos & cc.king_pos) == (gparent.blk_pos & gparent.king_pos)){
+                    continue;
+                }
+            } else{
+                if ((cc.red_pos & cc.king_pos) == (gparent.red_pos & gparent.king_pos)){
+                    continue;
+                }
+            }
+        }
+
+        gparent = parent;
+        parent = bb;
+        bb = cc;
+
         delete [] children.bb_ary;
         children = gen_children_gpu(bb);
     }
@@ -42,7 +65,7 @@ __global__ void random_descent( curandState * state,
     if (children.size > 0){
         delete [] children.bb_ary;
         winner = !player;
-        if (true){
+        if (threadIdx.x % 2){
             size_t red_count = bit_count_gpu(bb.red_pos);
             size_t red_king_count = bit_count_gpu(bb.red_pos & bb.king_pos);
             size_t red_score = red_count + red_king_count;

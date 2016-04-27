@@ -16,14 +16,13 @@ using skynet::checkers::game_info_t;
 using skynet::checkers::status_t;
 using skynet::checkers::board_t;
 
-#include "minimax_mcmc.hpp"
+#include "mcmc.h"
+#include <thrust/sort.h>
+#define MAX_NUM_MOVES BB_PRE_ALLOC
+#define MAX_NUM_REPEAT 1
+#define NUM_ITERS 1024
 
-#include <random>
-typedef std::default_random_engine def_rand_eng;
-typedef std::uniform_int_distribution<int> unif_dist;
-typedef std::bernoulli_distribution bern_dist;
-
-BitBoard make_move(Minimax_mcmc & mm, const BitBoard & bb);
+vector<BitBoard> make_move(const BitBoard & bb, ullong * d_wins, BitBoard_gpu * d_boards, curandState * d_state, bool player);
 
 int main(int argc, char *argv[])
 {
@@ -71,8 +70,26 @@ int main(int argc, char *argv[])
     vector<BitBoard> children;
     string board_string = to_string(start_board);
 
-    bool game_over = false;
-    Minimax_mcmc mm(start_board, 15);
+    curandState * d_state;
+    // Set up randstate
+    checkCudaErrors(cudaMalloc((void **)&d_state, 
+                        MAX_NUM_MOVES * MAX_NUM_REPEAT * NUM_ITERS * sizeof(curandState)));
+    ullong time = system_clock::to_time_t(system_clock::now());
+    dim3 blocks(MAX_NUM_MOVES, MAX_NUM_REPEAT);
+    setup_kernel<<<blocks,NUM_ITERS>>>(d_state, time);
+    checkCudaErrors(cudaDeviceSynchronize());
+
+    // Set up space for boards to be evaluated
+    BitBoard_gpu * d_boards;
+    checkCudaErrors(cudaMalloc(&d_boards, MAX_NUM_MOVES * sizeof(BitBoard_gpu)));
+
+    // Set up space and zero win count
+    ullong * d_wins;
+    checkCudaErrors(cudaMalloc(&d_wins, MAX_NUM_MOVES * sizeof(ullong)));
+    checkCudaErrors(cudaMemset(d_wins, 0, MAX_NUM_MOVES * sizeof(ullong)));
+    checkCudaErrors(cudaDeviceSynchronize());
+    cout << "sizeof(curandState) " << sizeof(curandState) << endl;
+
     try{
         string last_game_string;
         while(true){
@@ -109,7 +126,7 @@ int main(int argc, char *argv[])
                 print_bb(server_board);
                 last_game_string = game_string;
             } else{
-                sleep(2);
+                usleep(300e3);
             }
 
             if (player == turn){
@@ -129,16 +146,18 @@ int main(int argc, char *argv[])
                 }
 
                 // Select move
-                BitBoard move = make_move(mm,server_board);
+                auto moves = make_move(server_board, d_wins, d_boards, d_state, player);
+                auto move = moves.back();
                 print_bb(move);
                 string move_string = to_string(move);
                 cout << move_string << endl;
                 play_game(server_name, game_name, move_string);
                 cout << "played.." << endl;
                 children = gen_children(move);
+                setup_kernel<<<blocks,NUM_ITERS>>>(d_state, time);
             }
 
-            sleep(1);
+            usleep(300e3);
         }
     }
     catch(std::exception & error)
@@ -154,31 +173,58 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-BitBoard make_move(Minimax_mcmc & mm, const BitBoard & bb)
+vector<BitBoard> make_move(const BitBoard & bb, ullong * d_wins, BitBoard_gpu * d_boards, curandState * d_state, bool player)
 {
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    def_rand_eng gen(seed);
-    bern_dist bdist(.1);
-
-    bool pick_rand = bdist(gen);
-
-    BitBoard move;
-    // random move
+    ullong start_time = system_clock::to_time_t(system_clock::now());
     auto children = gen_children(bb);
-    if (children.size() == 0){
-        cout << "Error, no moves available!" << endl;
-        exit(1);
-    }
-    if (false /*pick_rand*/){
-        unif_dist udist(0,children.size() - 1);
-        int rand_index = udist(gen);
-        move = children[rand_index];
-        //cout << moves << ": " << "rand" << endl;
-        //print_bb(move);
-    } else{     // minimax move
-        mm.set_root_node(bb);
-        move = mm.evaluate(1);
+    int num_children = children.size();
+
+    if (num_children <= 1){
+        return children;
     }
 
-    return move;
+    // Copy child boards to device
+    checkCudaErrors(cudaMemcpy(d_boards,
+                        &children[0],
+                        num_children * sizeof(BitBoard),
+                        cudaMemcpyHostToDevice));
+
+    // Zero out win counts
+    checkCudaErrors(cudaMemset(d_wins, 0, num_children * sizeof(ullong)));
+
+    int num_ki = MAX_NUM_MOVES * MAX_NUM_REPEAT / num_children;
+
+    cout << num_children << ", " << num_ki << endl;
+    dim3 blocks(num_children,num_ki);
+    ullong h_wins[num_children];
+    ullong time = system_clock::to_time_t(system_clock::now());
+    ullong elapsed_time;
+    ullong limit = 10;
+    size_t num_iter = 0;
+    while (time - start_time < limit){
+        random_descent<<<blocks,NUM_ITERS>>>(d_state, d_boards, d_wins, player);
+        num_iter++;
+        checkCudaErrors(cudaDeviceSynchronize());
+        // Sort boards by win count, lowest to highest
+        ullong new_time = system_clock::to_time_t(system_clock::now());
+        if (new_time - start_time < 15 - elapsed_time){
+            checkCudaErrors(cudaMemcpy(h_wins,
+                                d_wins,
+                                num_children * sizeof(ullong),
+                                cudaMemcpyDeviceToHost));
+        }
+        elapsed_time = new_time - time;
+        limit = 15 - elapsed_time;
+        time = new_time;
+        cout << "Time elapsed: " << time - start_time << endl;
+    }
+    thrust::sort_by_key(h_wins, h_wins + num_children, &children[0]);
+
+    cout << "num playouts " << num_iter * num_ki * NUM_ITERS << endl;
+    for(int i = 0; i < num_children; i++){
+        cout << (double) h_wins[i] / (num_iter * num_ki * NUM_ITERS) << endl;
+    }
+    cout << endl;
+
+    return children;
 }

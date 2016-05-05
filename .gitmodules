@@ -1,3 +1,3 @@
 [submodule "skynet"]
 	path = skynet
-	url = ./skynet/
+	url = https://github.com/UAFCS600/skynet

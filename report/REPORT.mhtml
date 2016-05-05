@@ -1,0 +1,1107 @@
+From: <Saved by Blink>
+Subject: 
+Date: Fri, 5 May 2016 22:35:41 -0000
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--01DXaxFZvn04z5s14JSg33Pqy3vsBh9T5Qz4SDIXnG----"
+
+------MultipartBoundary--01DXaxFZvn04z5s14JSg33Pqy3vsBh9T5Qz4SDIXnG----
+Content-Type: text/html
+Content-ID: <frame-171-F665F003-7088-4445-8D4C-BF04CBBAE25B@mhtml.blink>
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///Users/adamlevy/projects/checkers/REPORT.md
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
+=3Dwindows-1252"><link rel=3D"stylesheet" id=3D"theme" href=3D"style.css"><style typ=
+e=3D"text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-r=
+adius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-s=
+hadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-s=
+hadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px=
+ solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: poin=
+ter; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -we=
+bkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px=
+; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-=
+color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding=
+: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!=
+important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type=3D"text/css">#MathJax_About {position: fixed; left: 50%=
+; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; ba=
+ckground-color: #DDDDDD; color: black; cursor: default; font-family: messag=
+e-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform:=
+ none; line-height: normal; letter-spacing: normal; word-spacing: normal; w=
+ord-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-ra=
+dius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-b=
+order-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: =
+0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-s=
+hadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dro=
+pshadow(OffX=3D2, OffY=3D2, Color=3D'gray', Positive=3D'true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; w=
+idth: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor:=
+ default; font: menu; text-align: left; text-indent: 0; text-transform: non=
+e; line-height: normal; letter-spacing: normal; word-spacing: normal; word-=
+wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius=
+: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-r=
+adius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px=
+ 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0=
+px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(=
+OffX=3D2, OffY=3D2, Color=3D'gray', Positive=3D'true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; co=
+lor: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E=
+8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-bl=
+ock; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18=
+px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Cou=
+rier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.=
+5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-ra=
+dius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!im=
+portant}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type=3D"text/css">.MathJax_Preview .MJXf-math {color: inheri=
+t!important}
+</style><style type=3D"text/css">.MJX_Assistive_MathML {position: absolute!=
+important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 =
+0 0!important; border: 0!important; height: 1px!important; width: 1px!impor=
+tant; overflow: hidden!important; display: block!important; -webkit-touch-c=
+allout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-use=
+r-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type=3D"text/css">#MathJax_Zoom {position: absolute; backgro=
+und-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: =
+.5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: =
+normal; text-align: left; text-indent: 0; text-transform: none; line-height=
+: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; =
+white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box=
+-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AA=
+AAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15=
+px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImage=
+Transform.Microsoft.dropshadow(OffX=3D2, OffY=3D2, Color=3D'gray', Positive=
+=3D'true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; di=
+splay: inline-block; width: 100%; height: 100%; border: 0; padding: 0; marg=
+in: 0; background-color: white; opacity: 0; filter: alpha(opacity=3D0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; w=
+idth: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; =
+display: inline-block; border: 0; padding: 0; margin: 0; background-color: =
+white; opacity: 0; filter: alpha(opacity=3D0)}
+</style><style type=3D"text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-col=
+or: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-in=
+dex: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-ind=
+ex: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type=3D"text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right;=
+ -ms-transform-origin: right; -o-transform-origin: right; transform-origin:=
+ right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,=
+serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGenera=
+l,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGenera=
+l,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGen=
+eral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGen=
+eral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-f=
+amily: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; bord=
+er-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: to=
+p}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em=
+ 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid =
+#CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -m=
+s-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -m=
+s-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -m=
+s-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -m=
+s-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -m=
+s-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -m=
+s-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -m=
+s-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -m=
+s-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -m=
+s-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -m=
+s-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left=
+; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><body><h1 id=3D"checkers-monte-carlo-random-descent-playouts=
+">Checkers :: Monte Carlo Random Descent Playouts</h1>
+<h4 id=3D"adam-levy-cs405-intro-to-ai-professor-jon-genetti-uaf-spring-2016=
+">Adam Levy // CS405 Intro to AI // Professor Jon Genetti // UAF Spring 201=
+6</h4>
+<h3 id=3D"table-of-contents">Table of Contents</h3>
+<ul>
+<li>Board Representation &amp;&amp; Move Generation<ul>
+<li>Design Considerations</li>
+<li>BitBoard Struct</li>
+<li>Move Generation</li>
+</ul>
+</li>
+<li>Checkers AI<ul>
+<li>Challenges of Neural Networks</li>
+<li>Monte Carlo Random Descent</li>
+<li>Cuda Implementation</li>
+</ul>
+</li>
+<li>Analysis<ul>
+<li>MCRD Limitations</li>
+<li>Future Improvements<ul>
+<li>Proportional Playout</li>
+<li>MCRD Trained Neural Network</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id=3D"board-representation-move-generation">Board Representation &amp;&=
+amp; Move Generation</h2>
+<h3 id=3D"design-considerations">Design Considerations</h3>
+<h4 id=3D"goals">Goals</h4>
+<p>When I set out to write this checkers program I knew that stable and
+efficient board representation and move generation would be crucial
+for building a competetive AI. I wanted to design my board early and
+get as much testing and validation time in on that code as possible.</p>
+<p>Mistakes in the board generation would likely lead to wasted time in
+the AI design process. Instability of the program could lead to crashes
+during AI development and training or worse, during the tournament.</p>
+<p>In addition to stability, I knew that a small board representation
+would be important for deeper searches, both in terms of memory but
+more importantly for the speed benefits of moving less memory around.
+A board representation that can fit in registers allows for faster
+processing and stack frame changes that pass board states between=20
+functions. </p>
+<h4 id=3D"functional-paradigm">Functional Paradigm</h4>
+<p>I decided to apply a functional programming paradigm to this project.=20
+I wanted a program that had no dynamic memory allocation and that used=20
+pure functions with no side effects. So there is no CheckerBoard object=20
+that mutates. Instead I use small bitboards that simply hold the state=20
+of the game. Bitboards do not get manipulated directly. Instead, the=20
+bitboards are passed to a move generation function which generates all=20
+the child bitboards and leaves the parent unchanged. In this way there=20
+are no mutable objects. There are only board states that can be used=20
+to generate their children via a deterministic function.</p>
+<h4 id=3D"code-correctness">Code Correctness</h4>
+<p>I made a point to structure my code in such a way as to reduce=20
+programming mistakes. Bitboards are efficient but they are not very
+expressive or easy to visualize. I spent a lot of time sitting with a
+checker board and writing out bitboards by hand. I ended up writing a
+set of macro primitives for movements and jumps on the bitboard. The
+macros generate move and jump positions for all pieces simultaneously
+using bitwise operations. They also consider the turn and apply the=20
+approriate movement direction. This allowed me to write the move=20
+generation functions once from a single perspective. As I discuss further
+below, it also eliminates turn dependent branching.</p>
+<h3 id=3D"bitboard-struct">BitBoard Struct</h3>
+<p>The Checkers board has 32 positions and each position can be in one of 5=
+=20
+different states: empty, red piece, red king, black piece, black king.
+This can be minimally held in three <code>uint32_t</code>, 32 bit unsigned =
+integers,
+and one <code>bool</code> for the turn. Here is my representation:</p>
+<pre><code><span class=3D"keyword">struct</span> BitBoard
+{
+    uint32_t red_pos  =3D RED_INIT_POS_BM;
+    uint32_t blk_pos  =3D BLK_INIT_POS_BM;
+    uint32_t king_pos =3D KING_INIT_POS_BM;
+    <span class=3D"keyword">bool</span> turn =3D FIRST_TURN;
+    <span class=3D"keyword">bool</span> <span class=3D"keyword">operator</s=
+pan>=3D=3D( <span class=3D"keyword">const</span> BitBoard &amp; ) <span cla=
+ss=3D"keyword">const</span>;
+    <span class=3D"keyword">bool</span> <span class=3D"keyword">operator</s=
+pan>!=3D( <span class=3D"keyword">const</span> BitBoard &amp; ) <span class=
+=3D"keyword">const</span>;
+};
+</code></pre><p>The equality operator returns true if everything down to th=
+e turn is equal=20
+between the two boards being compared. Any difference is an inequality.</p>
+<p>The BitBoard is initialized to the following:</p>
+<pre><code><span class=3D"comment">#define RED_INIT_POS_BM    0xFFF00000</s=
+pan>
+<span class=3D"comment">#define BLK_INIT_POS_BM    0x00000FFF</span>
+<span class=3D"comment">#define KING_INIT_POS_BM   0x00000000</span>
+</code></pre><p>The board numbering representation I use is below:</p>
+<pre><code><span class=3D"comment">//                        00  01  02  03=
+  </span>
+<span class=3D"comment">//                        ----------------|</span>
+<span class=3D"comment">//   1C  1D  1E  1F       1C  1D  1E  1F  |   07</s=
+pan>
+<span class=3D"comment">// 18  19  1A  1B         18  19  1A  1B  |   06</s=
+pan>
+<span class=3D"comment">//   14  15  16  17       14  15  16  17  |   05</s=
+pan>
+<span class=3D"comment">// 10  11  12  13         10  11  12  13  |   04</s=
+pan>
+<span class=3D"comment">//   0C  0D  0E  0F       0C  0D  0E  0F  |   03</s=
+pan>
+<span class=3D"comment">// 08  09  0A  0B         08  09  0A  0B  |   02</s=
+pan>
+<span class=3D"comment">//   04  05  06  07       04  05  06  07  |   01</s=
+pan>
+<span class=3D"comment">// 00  01  02  03         00  01  02  03  |   00</s=
+pan>
+</code></pre><p>Where <code>0x00</code> is the least signficant bit and <co=
+de>0x1F</code> or <code>32</code> is the highest bit.=20
+In code,</p>
+<pre><code><span class=3D"title">bool</span> bit(uint32_t B, int index){
+    <span class=3D"title">return</span> ((0x00000001) &amp; (B &gt;&gt; ind=
+ex));
+}
+</code></pre><p>The row and column indexes are used in the move generation.=
+ Rows and columns
+are retrieved using masks generated by macro functions.</p>
+<pre><code>#define ROW_MASK(row) (<span class=3D"number">0xf</span> &lt;<sp=
+an class=3D"xml"><span class=3D"tag">&lt; (<span class=3D"attribute">4</spa=
+n>*(<span class=3D"attribute">row</span>)))
+#<span class=3D"attribute">define</span> <span class=3D"attribute">COL_MASK=
+</span>(<span class=3D"attribute">col</span>) (<span class=3D"attribute">0x=
+11111111</span> &lt;&lt; (<span class=3D"attribute">col</span>))</span>
+</span></code></pre><p>One way to think about the bitboard in hex is that e=
+ach hex digit represents a=20
+row where <code>0x1</code> is the left most square and <code>0x8</code> is =
+the right most square.</p>
+<h3 id=3D"move-generation-implementation">Move Generation Implementation</h=
+3>
+<p>The two main move generation functions are named,</p>
+<pre><code><span class=3D"stl_container"><span class=3D"built_in">vector</s=
+pan>&lt;BitBoard&gt;</span> gen_children(<span class=3D"keyword">const</spa=
+n> BitBoard &amp; bb);
+<span class=3D"stl_container"><span class=3D"built_in">vector</span>&lt;Bit=
+Board&gt;</span> follow_jumps(<span class=3D"keyword">const</span> BitBoard=
+ &amp; bb, uint32_t follow_mask =3D <span class=3D"number">0xffFFffFF</span=
+>);
+</code></pre><p>The <code>gen_children()</code> function starts by checking=
+ for jumps, since jumps must be
+taken if there are any available. It calls <code>follow_jumps()</code> with=
+out a follow mask=20
+so that all jumps are considered. Since jumps must be followed to their con=
+clusion,=20
+<code>follow_jumps()</code> calls itself recursively on each possible jump =
+it finds with a
+follow mask such that only continuation jumps are followed.</p>
+<h4 id=3D"bit-mask-macros">Bit Mask Macros</h4>
+<p>The majority of the bit manipulation is done using macros which manage t=
+he appropriate
+bitshifts. These macro defines are located in <code>bit_mask_init.h</code>.=
+</p>
+<p>To understand the following macros, first note that if you are the playe=
+r
+whose pieces start on the least significant bits, a left shift is moving yo=
+ur pieces=20
+forward. </p>
+<p>Also note that for all positions on the board, a bit shift of 4 always p=
+roduces
+a valid move. The second possible move from a position is produced from a b=
+it shift of=20
+either 3 or 5, depending on the row. And a few positions on the board only =
+have one valid
+move. </p>
+<p>The following bit masks mask off the positions from which a left or righ=
+t shift=20
+of 3 or 5 is not a valid move. These are all based on the row and column ma=
+sks given above.=20
+The bit representation of the masks is displayed for the move shift masks. =
+The jump=20
+masks are for the same purpose: masking off the positions so that only the =
+positions=20
+for which the given shift produces a valid move remain.</p>
+<pre><code><span class=3D"comment">// MOVE SHIFT MASKS</span>
+<span class=3D"preprocessor">#define LEFT3_MASK       ((~COL_MASK(0)) &amp;=
+ (ROW_MASK(0) | ROW_MASK(2) | ROW_MASK(4) | ROW_MASK(6)))           </span>
+<span class=3D"comment">//0b00001110000011100000111000001110</span>
+<span class=3D"preprocessor">#define LEFT5_MASK       ((~COL_MASK(3)) &amp;=
+ (ROW_MASK(1) | ROW_MASK(3) | ROW_MASK(5)))                         </span>
+<span class=3D"comment">//0b00000000011100000111000001110000;</span>
+<span class=3D"preprocessor">#define RIGHT3_MASK      ((~COL_MASK(3)) &amp;=
+ (ROW_MASK(1) | ROW_MASK(3) | ROW_MASK(5) | ROW_MASK(7)))           </span>
+<span class=3D"comment">//0b01110000011100000111000001110000;</span>
+<span class=3D"preprocessor">#define RIGHT5_MASK      ((~COL_MASK(0)) &amp;=
+ (ROW_MASK(2) | ROW_MASK(4) | ROW_MASK(6)))                         </span>
+<span class=3D"comment">//0b00000000111000001110000011100000;</span>
+<span class=3D"comment">// JUMP SHIFT MASKS</span>
+<span class=3D"preprocessor">#define LEFT7_MASK       ((~COL_MASK(0)) &amp;=
+ (~(ROW_MASK(6) | ROW_MASK(7))))</span>
+<span class=3D"preprocessor">#define LEFT9_MASK       ((~COL_MASK(3)) &amp;=
+ (~(ROW_MASK(6) | ROW_MASK(7))))</span>
+<span class=3D"preprocessor">#define RIGHT7_MASK      ((~COL_MASK(3)) &amp;=
+ (~(ROW_MASK(0) | ROW_MASK(1))))</span>
+<span class=3D"preprocessor">#define RIGHT9_MASK      ((~COL_MASK(0)) &amp;=
+ (~(ROW_MASK(0) | ROW_MASK(1))))</span>
+</code></pre><h4 id=3D"bit-shift-macro-functions">Bit Shift Macro Functions=
+</h4>
+<p>Using the masks above, we can apply the appropriate bitshifts to the bit=
+boards and
+<code>bitwise or</code> them back together. These macro functions generate =
+all the possible
+moves from the given bits set in the bitboard, <code>pos</code>, which is a=
+ssumed to be a <code>uint32_t</code>.
+Move left is a shift left, which is forward for the player whose pieces sta=
+rt on the least
+significant bits.</p>
+<pre><code><span class=3D"comment">// GENERATE MOVES OR PIECES CONCURRENTLY=
+ ON A BOARD</span>
+#define MOVE_LEFT(pos)      (((pos) &lt;<span class=3D"xml"><span class=3D"=
+tag">&lt; <span class=3D"attribute">4</span>) | (((<span class=3D"attribute=
+">pos</span>) &amp;  <span class=3D"attribute">LEFT3_MASK</span>) &lt;&lt; =
+<span class=3D"attribute">3</span>) | (((<span class=3D"attribute">pos</spa=
+n>) &amp;  <span class=3D"attribute">LEFT5_MASK</span>) &lt;&lt; <span clas=
+s=3D"attribute">5</span>))
+#<span class=3D"attribute">define</span> <span class=3D"attribute">MOVE_RIG=
+HT</span>(<span class=3D"attribute">pos</span>)     (((<span class=3D"attri=
+bute">pos</span>) &gt;</span>&gt; 4) | (((pos) &amp; RIGHT3_MASK) &gt;&gt; =
+3) | (((pos) &amp; RIGHT5_MASK) &gt;&gt; 5))</span>
+</code></pre><p>These shifts are always valid, and I use them to help isola=
+te individual moves.</p>
+<pre><code>#define LEFT_4(pos)         ((pos) &lt;<span class=3D"xml"><span=
+ class=3D"tag">&lt; <span class=3D"attribute">4</span>)
+#<span class=3D"attribute">define</span> <span class=3D"attribute">RIGHT_4<=
+/span>(<span class=3D"attribute">pos</span>)        ((<span class=3D"attrib=
+ute">pos</span>) &gt;</span>&gt; 4)</span>
+</code></pre><p>The jump shifts work pretty much the same way.</p>
+<pre><code><span class=3D"comment">// GENERATE JUMP POSITIONS OR JUMP PIECE=
+S CONCURRENTLY ON A BOARD</span>
+#define JUMP_LEFT(pos)      ((((pos) &amp;  LEFT7_MASK) &lt;<span class=3D"=
+xml"><span class=3D"tag">&lt; <span class=3D"attribute">7</span>) | (((<spa=
+n class=3D"attribute">pos</span>) &amp;  <span class=3D"attribute">LEFT9_MA=
+SK</span>) &lt;&lt; <span class=3D"attribute">9</span>))
+#<span class=3D"attribute">define</span> <span class=3D"attribute">JUMP_RIG=
+HT</span>(<span class=3D"attribute">pos</span>)     ((((<span class=3D"attr=
+ibute">pos</span>) &amp; <span class=3D"attribute">RIGHT7_MASK</span>) &gt;=
+</span>&gt; 7) | (((pos) &amp; RIGHT9_MASK) &gt;&gt; 9))</span>
+</code></pre><p>These take the guesswork out of remembering which shift dir=
+ection is forward for
+which side. For my board representation Black's pieces are on the least sig=
+nificant bits.</p>
+<pre><code><span class=3D"comment">// FORWARD GIVES VALID POTENTIAL MOVES F=
+ROM THE GIVEN PIECES (pos)</span>
+<span class=3D"preprocessor">#define BLK_FORWD(pos)      MOVE_LEFT(pos)</sp=
+an>
+<span class=3D"preprocessor">#define BLK_FORWD_4(pos)    LEFT_4(pos)</span>
+<span class=3D"preprocessor">#define BLK_JUMP(pos)       JUMP_LEFT(pos)</sp=
+an>
+<span class=3D"comment">// BACKWARD GIVES PIECES THAT COULD HAVE MOVED FROM=
+ THE GIVEN POSITIONS (pos) OR KING MOVES</span>
+<span class=3D"preprocessor">#define BLK_BCKWD(pos)      MOVE_RIGHT(pos)</s=
+pan>
+<span class=3D"preprocessor">#define BLK_BCKWD_4(pos)    RIGHT_4(pos)</span=
+>
+<span class=3D"preprocessor">#define BLK_JUMP_BACK(pos)  JUMP_RIGHT(pos)</s=
+pan>
+
+<span class=3D"comment">// SAME FOR RED</span>
+<span class=3D"preprocessor">#define RED_FORWD(pos)      MOVE_RIGHT(pos)</s=
+pan>
+<span class=3D"preprocessor">#define RED_FORWD_4(pos)    RIGHT_4(pos)</span=
+>
+<span class=3D"preprocessor">#define RED_JUMP(pos)       JUMP_RIGHT(pos)</s=
+pan>
+<span class=3D"preprocessor">#define RED_BCKWD(pos)      MOVE_LEFT(pos)</sp=
+an>
+<span class=3D"preprocessor">#define RED_BCKWD_4(pos)    LEFT_4(pos)</span>
+<span class=3D"preprocessor">#define RED_JUMP_BACK(pos)  JUMP_LEFT(pos)</sp=
+an>
+</code></pre><p>Finally, these macros allow me to always write the code fro=
+m the perspective of
+the player whose turn it is, without worrying about the direction of moveme=
+nt=20
+with respect to the board.</p>
+<pre><code><span class=3D"preprocessor">#define RED 0</span>
+<span class=3D"preprocessor">#define BLK 1</span>
+
+<span class=3D"preprocessor">#define IS_RED(turn)        (0xffFFffFF * !(tu=
+rn))</span>
+<span class=3D"preprocessor">#define IS_BLK(turn)        (0xffFFffFF *  (tu=
+rn))</span>
+
+<span class=3D"comment">// REMOVE THE GUESS WORK AND SAVE REDUNDANT CODE</s=
+pan>
+<span class=3D"preprocessor">#define FORWD(turn, pos)       ((BLK_FORWD(pos=
+)     &amp; IS_BLK(turn)) | (RED_FORWD(pos)     &amp; IS_RED(turn)))</span>
+<span class=3D"preprocessor">#define FORWD_4(turn, pos)     ((BLK_FORWD_4(p=
+os)   &amp; IS_BLK(turn)) | (RED_FORWD_4(pos)   &amp; IS_RED(turn)))</span>
+<span class=3D"preprocessor">#define FORWD_JUMP(turn, pos)  ((BLK_JUMP(pos)=
+      &amp; IS_BLK(turn)) | (RED_JUMP(pos)      &amp; IS_RED(turn)))</span>
+
+<span class=3D"preprocessor">#define BCKWD(turn, pos)       ((BLK_BCKWD(pos=
+)     &amp; IS_BLK(turn)) | (RED_BCKWD(pos)     &amp; IS_RED(turn)))</span>
+<span class=3D"preprocessor">#define BCKWD_4(turn, pos)     ((BLK_BCKWD_4(p=
+os)   &amp; IS_BLK(turn)) | (RED_BCKWD_4(pos)   &amp; IS_RED(turn)))</span>
+<span class=3D"preprocessor">#define BCKWD_JUMP(turn, pos)  ((BLK_JUMP_BACK=
+(pos) &amp; IS_BLK(turn)) | (RED_JUMP_BACK(pos) &amp; IS_RED(turn)))</span>
+
+<span class=3D"preprocessor">#define KING_ME_ROW_MASK(turn) ((ROW_MASK(7)  =
+      &amp; IS_BLK(turn)) | (ROW_MASK(0)        &amp; IS_RED(turn)))</span>
+</code></pre><p>This eliminates the code inside the turn dependent if state=
+ment in the move=20
+generation code. I believe this to help avoid branch misprediction and work=
+=20
+with CPU's prefetching of instructions. I need to perform timing tests with=
+=20
+this code compared against code that branches once based on turn. However,=
+=20
+since the opponent's moves are generated but masked off, my implementation=
+=20
+has to discard half of all the results of the inplace bitshift operations=
+=20
+it performs. That could make it slower in fact. But no way to know unless=
+=20
+it's timed and tested.</p>
+<h4 id=3D"putting-it-all-together">Putting It All Together</h4>
+<p>I won't go through the entire move generation code. But I want to show t=
+wo=20
+parts that demonstrate how I use the above masks to generate all child boar=
+ds
+somewhat simultaneously. First note that I initially assign <code>play_pos<=
+/code> and=20
+<code>oppo_pos</code> to the appropriate <code>uint32_t</code> from the inp=
+ut <code>BitBoard</code> according=20
+to the turn. The following code can be found in <code>checkerboard.cpp</cod=
+e></p>
+<pre><code><span class=3D"title">uint32_t</span> occupied =3D (play_pos | o=
+ppo_pos);
+<span class=3D"title">uint32_t</span> empty =3D ~occupied;
+
+<span class=3D"title">uint32_t</span> movers      =3D BCKWD(turn, empty) &a=
+mp; play_pos &amp; ~bb.king_pos;
+<span class=3D"title">uint32_t</span> king_movers =3D (BCKWD(turn, empty) |=
+ FORWD(turn, empty)) &amp; play_pos &amp; bb.king_pos;
+</code></pre><p>In words, <em>a position has a mover if it can be reached f=
+rom an empty position and
+contains a play piece</em>.</p>
+<p>We can use these to generate the move locations. Ultimately we have to i=
+solate the
+individual valid movers and their respective valid move locations and mask=
+=20
+appropriately to create the valid child boards. In order to avoid iterating
+through each individual bit and asking if it contains a mover, I used
+nested for loops and iterated by row and column. This way if a row happens =
+to=20
+contain no pieces, the entire row can be skipped.</p>
+<pre><code>uint32_t movers_remaining      =3D movers;
+uint32_t king_movers_remaining =3D king_movers;
+<span class=3D"keyword">for</span> (size_t r =3D <span class=3D"number">0</=
+span>; r &lt; <span class=3D"number">8</span>; r++){
+    <span class=3D"keyword">if</span> (ROW_MASK(r) &amp; (movers_remaining =
+| king_movers_remaining)){
+        <span class=3D"comment">// MOVES ON THIS ROW</span>
+        <span class=3D"keyword">for</span> (size_t c =3D <span class=3D"num=
+ber">0</span>; c &lt; <span class=3D"number">4</span>; c++){
+            uint32_t p_piece =3D COL_MASK(c) &amp; ROW_MASK(r) &amp; (mover=
+s_remaining | king_movers_remaining);
+            <span class=3D"keyword">if</span> (p_piece){   <span class=3D"c=
+omment">// MOVE FOUND: a valid move can be made from a piece on r,c</span>
+                <span class=3D"comment">// find individual valid move locat=
+ions from here</span>
+                ...
+</code></pre><p>As movers are found they are checked off so that if no more=
+ movers remain
+in a row, the inner for loop can easily check and break early.</p>
+<pre><code>                ...
+                <span class=3D"comment">// uncheck move location from remai=
+ning moves</span>
+                <span class=3D"keyword">if</span>(is_king){
+                    king_movers_remaining &amp;=3D ~p_piece;
+                } <span class=3D"keyword">else</span>{
+                    movers_remaining &amp;=3D ~p_piece;
+                }
+            }
+            <span class=3D"comment">// no remaining moves in row</span>
+            <span class=3D"keyword">if</span> (!(ROW_MASK(r) &amp; (movers_=
+remaining | king_movers_remaining))){
+                <span class=3D"keyword">break</span>;
+            }
+        }
+    }
+}
+</code></pre><p>I could have nested the for loops the other way: columns th=
+en rows. But=20
+I felt that a completely empty row of length 4 is more likely than a=20
+completely empty row of length 8. </p>
+<p>The jump generation works much the same way, only the follow mask is app=
+lied
+so that only the continuation of previous jumps, if any, are followed.</p>
+<h2 id=3D"checkers-ai">Checkers AI</h2>
+<h3 id=3D"challenges-of-neural-networks">Challenges of Neural Networks</h3>
+<p>Early on in the project I had some concerns about the Blondie24 genetic =
+algorithm
+training method for evolving a neural network. The major issue I saw with i=
+t was
+how time and resource intensive the training is. This makes catching bugs a=
+nd=20
+iterating the design take a long time. There are parameters that affect how
+fast and how effectively the neural network will evolve and you won't know =
+how
+good the values you picked were until much later.</p>
+<p>Although there are much faster ways to train neural networks they all ar=
+e forms of
+supervised learning which means that they require example data. That means =
+you would
+need a large dataset of example board states to be properly labeled with th=
+eir=20
+relative strength. Early on in the project I thought about how to generate =
+such a=20
+data set. </p>
+<p>Another shortcoming of a simple feedforward neural network or multi laye=
+r perceptron (MLP)
+is its inability to see structural relationships in the input data. For exa=
+mple, simple
+MLP's do not perform well on most image datasets. There are correlations an=
+d other more
+complex relationships between neighboring pixels in images that are missed =
+by the MLP
+since there is nothing in its neuron structure that associates pixels that =
+are near each=20
+other. For an MLP, any relevant correlations between pixels must be complet=
+ely learned and=20
+represented by the parameters of the fully connected layers. </p>
+<p>Researchers have instead turned to Convolutional Neural Networks (CNN) f=
+or images which use low level
+layers of neurons that are fully connected only in local regions of the inp=
+ut. The locally
+connected sets of neurons feed into other locally connected sets of neurons=
+ in the layer above
+and ultimately feed into a set of fully connected layers. This allows the n=
+eural network to=20
+preserve structural aspects of the image from the outset. The weights of th=
+e neurons then only
+have to find relevant patterns within thier locally connected set of inputs=
+.</p>
+<p>I wanted to generate data for a CNN, which lead me to writing some simpl=
+e code for=20
+random game playouts and some simple CUDA kernels for data processing.</p>
+<h4 id=3D"generating-training-data">Generating Training Data</h4>
+<p>One method that I experimented with to generate training data was to pla=
+yout=20
+psuedo random games. On each move, a random number would be drawn. If the n=
+umber=20
+was even, the next move would be randomly selected. Otherwise, the move wou=
+ld be=20
+selected using a simple piece count evaluation with minimax. I saved the da=
+ta of=20
+these game playouts. </p>
+<p>Later, I wrote CUDA kernels that converted the saved game playouts from =
+their=20
+consice <code>uint32_t</code> BitBoard representation to an expanded 3 x 8 =
+x 8 tensor of floats
+with values of ones and zeros. I generated a label based on the outcome of =
+each game.
+I interpolated from 0 to 1 or -1 (depending on win or loss) from the start =
+to the end=20
+of the game. The idea was that earlier states in the game are less certainl=
+y a win.
+I was hoping that a CNN might be able to see some patterns across all of th=
+e playouts.</p>
+<p>I didn't have time to follow through on exploring training CNN on this d=
+ata.
+I mention it here because it lead to my exploration of CUDA, Monte Carlo Tr=
+ee=20
+Search, and my much simplified version which I refer to Monte Carlo Random =
+Descent.</p>
+<h3 id=3D"monte-carlo-random-descent">Monte Carlo Random Descent</h3>
+<p>In one sentence, Monte Carlo simulations use randomness to explore a spa=
+ce.=20
+In a Monte Carlo simulation, a large number of paths are randomly explored=
+=20
+through the space. You could imagine this like ants spreading out randomly=
+=20
+in the search for food. Some paths result in an optimum location in the spa=
+ce,
+just like some ants randomly stumble on food. As some directions in the spa=
+ce
+are found to be <em>good</em> those paths get followed and further explored=
+ with a
+higher probability. </p>
+<p>Monte Carlo Tree Search (MCTS) is an application of this technique for e=
+xploring=20
+a game tree. It has been applied to game AI for board games such as=20
+<a href=3D"http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Applications_files/g=
+rand-challenge.pdf">Go</a>,=20
+<a href=3D"http://www.arimaa.com/arimaa/papers/TomasKozelekThesis/mt.pdf">A=
+rimaa</a>,=20
+<a href=3D"https://www.cs.umd.edu/sites/default/files/scholarly_papers/Rajk=
+umar_1.pdf">Scrabble, Backgammon, Bridge</a>
+and <a href=3D"https://chessprogramming.wikispaces.com/Monte-Carlo+Tree+Sea=
+rch">Checkers</a>.
+MCTS uses repeated random playouts from a given board state to asses move q=
+uality.
+The move with the highest proportion of wins from the random playouts is pr=
+eferred.
+MCTS treats the game tree as the "multi-armed bandit" problem. Once enough =
+completely=20
+random playouts have passed through a leaf node, that node is expanded and =
+its=20
+children are played out. Again, the child node with the best win percentage=
+ is expanded,
+and so on. This results in an asymmetrically expanded game tree, where the =
+best moves
+get expanded first so that more playouts go through those nodes, improving
+their statistics.</p>
+<p>I believe implementing MCTS on the GPU requires a tree structure and som=
+e mechanism to=20
+periodically check in on the playouts and expand preferred nodes. First I i=
+nstead
+decided to focus on implementing the random playouts on the GPU.</p>
+<h3 id=3D"cuda-implementation">Cuda Implementation</h3>
+<p>To implement a Cuda kernel to perform random playouts I first needed to =
+make sure that my=20
+move generation code would work on the GPU. The main incompatability was th=
+e use of=20
+<code>std::vector</code>. You cannot use the standard library in device cod=
+e on the GPU. So I=20
+needed a mechanism that would pass arrays of unknown numbers of child BitBo=
+ards between=20
+functions. I used a struct that carried a pointer to an array and a size va=
+riable. The=20
+array was dynamically allocated at a size of 30 BitBoards. The calling func=
+tion is responsible
+for deleting that memory. This was the one place where I couldn't avoid dyn=
+amic memory management.</p>
+<pre><code><span class=3D"keyword">struct</span> BitBoardArray
+{
+    BitBoard_gpu *  bb_ary =3D <span class=3D"number">0</span>;
+    size_t      size =3D <span class=3D"number">0</span>;
+};
+</code></pre><p>I also created a <code>BitBoard_gpu</code> struct, identica=
+l to <code>BitBoard</code>. The reason for this
+was to keep the C++ <code>checkerboard.cpp</code> compilation unit seperate=
+ from the CUDA
+compilation so that my original functions could be easily used in other bra=
+nches=20
+of the git repo. This is required for the BitBoard struct so that the equal=
+ity operators
+can be compiled for the GPU device code. Any functions that will be called =
+from the GPU=20
+require the <code>__device__</code> label. This code can be found in <code>=
+checkerboard_gpu.hpp</code>.</p>
+<pre><code><span class=3D"keyword">struct</span> BitBoard_gpu
+{
+    uint32_t red_pos  =3D RED_INIT_POS_BM;
+    uint32_t blk_pos  =3D BLK_INIT_POS_BM;
+    uint32_t king_pos =3D KING_INIT_POS_BM;
+    <span class=3D"keyword">bool</span> turn =3D FIRST_TURN;
+    __device__ <span class=3D"keyword">bool</span> <span class=3D"keyword">=
+operator</span>=3D=3D( <span class=3D"keyword">const</span> BitBoard_gpu &a=
+mp; ) <span class=3D"keyword">const</span>;
+    __device__ <span class=3D"keyword">bool</span> <span class=3D"keyword">=
+operator</span>!=3D( <span class=3D"keyword">const</span> BitBoard_gpu &amp=
+; ) <span class=3D"keyword">const</span>;
+    __device__ __host__ BitBoard_gpu &amp; <span class=3D"keyword">operator=
+</span>=3D( <span class=3D"keyword">const</span> BitBoard &amp; );
+};
+
+__device__ BitBoardArray gen_children_gpu(<span class=3D"keyword">const</sp=
+an> BitBoard_gpu &amp; bb);
+__device__ BitBoardArray follow_jumps_gpu(<span class=3D"keyword">const</sp=
+an> BitBoard_gpu &amp; bb, uint32_t follow_mask =3D <span class=3D"number">=
+0xffFFffFF</span>);
+__device__ size_t bit_count_gpu(uint32_t i);
+</code></pre><h4 id=3D"curand">cuRand</h4>
+<p>Using psuedo random numbers on the GPU requires the use of Cuda's curand=
+ library.
+There are a number of different random number generation algorithms and the=
+ options
+of the library can be overwhelming. But the process is relatively straight =
+forward.</p>
+<p>To generate a random number from a kernel you need a <code>curandState</=
+code> object on the GPU.
+The <code>curandState</code> object holds the random state, like the seed, =
+sequence and offset.
+Two <code>curandState</code> objects set to the same seed, sequence, and of=
+fset generate the exact
+same random numbers. So each thread needs its own <code>curandState</code>.=
+ Each <code>curandState</code> must
+be initialized differently.</p>
+<pre><code>__global__ void setup_kernel(curandState *state, ullong r_off<sp=
+an class=3D"operator"><span class=3D"keyword">set</span>)
+{
+    ullong idx =3D threadIdx.x + blockDim.x * (blockIdx.x * gridDim.y + blo=
+ckIdx.y);</span>
+    ullong sequence =3D threadIdx.x;
+    ullong seed =3D (idx + 1) * r_off<span class=3D"operator"><span class=
+=3D"keyword">set</span>;</span>
+    curand_init(seed, sequence, r_off<span class=3D"operator"><span class=
+=3D"keyword">set</span>, &amp;state[idx]);</span>
+}
+</code></pre><p>The kernel for random descent generates integers uniformly =
+between 0 and the number
+of child boards less one.</p>
+<h4 id=3D"playout-loop">Playout Loop</h4>
+<p>To keep the game playouts below a certain length I used a simple piece c=
+ount
+using <code>bit_count_gpu()</code> to award the win on games that went on t=
+oo long.</p>
+<p>I also added cycle detection when kings are in play to prevent randomly=
+=20
+descending through king cycles.</p>
+<p>Below is the while loop used in the random descent kernel for playing ou=
+t the game.
+The complete code can be found in <code>mcmc.cu</code>.</p>
+<pre><code>while(children.size &amp;&amp; n_moves <span class=3D"tag">&lt; =
+<span class=3D"attribute">MAX_MOVES</span>){
+    <span class=3D"attribute">n_moves</span>++;
+    <span class=3D"attribute">size_t</span> <span class=3D"attribute">b</sp=
+an> =3D <span class=3D"attribute">children.size</span>;
+    <span class=3D"attribute">frand</span> =3D <span class=3D"attribute">cu=
+rand_uniform</span>(&amp;<span class=3D"attribute">localState</span>);
+    <span class=3D"attribute">int</span> <span class=3D"attribute">irand</s=
+pan> =3D <span class=3D"attribute">frand</span> * <span class=3D"attribute"=
+>b</span>;
+
+    <span class=3D"attribute">BitBoard_gpu</span> <span class=3D"attribute"=
+>cc</span> =3D <span class=3D"attribute">children.bb_ary</span>[<span class=
+=3D"attribute">irand</span>];
+
+    // <span class=3D"attribute">Cycle</span> <span class=3D"attribute">det=
+ection</span>
+    <span class=3D"attribute">if</span> ((<span class=3D"attribute">cc.king=
+_pos</span> ^ <span class=3D"attribute">bb.king_pos</span>) &amp;&amp; (<sp=
+an class=3D"attribute">parent.king_pos</span> ^ <span class=3D"attribute">g=
+parent.king_pos</span>)){
+        <span class=3D"attribute">if</span> (<span class=3D"attribute">bb.t=
+urn</span> =3D<span class=3D"value">=3D</span> <span class=3D"attribute">BL=
+K</span>){
+            <span class=3D"attribute">if</span> ((<span class=3D"attribute"=
+>cc.blk_pos</span> &amp; <span class=3D"attribute">cc.king_pos</span>) =3D<=
+span class=3D"value">=3D</span> (<span class=3D"attribute">gparent.blk_pos<=
+/span> &amp; <span class=3D"attribute">gparent.king_pos</span>)){
+                <span class=3D"attribute">continue</span>;
+            }
+        } <span class=3D"attribute">else</span>{
+            <span class=3D"attribute">if</span> ((<span class=3D"attribute"=
+>cc.red_pos</span> &amp; <span class=3D"attribute">cc.king_pos</span>) =3D<=
+span class=3D"value">=3D</span> (<span class=3D"attribute">gparent.red_pos<=
+/span> &amp; <span class=3D"attribute">gparent.king_pos</span>)){
+                <span class=3D"attribute">continue</span>;
+            }
+        }
+    }
+
+    <span class=3D"attribute">gparent</span> =3D <span class=3D"attribute">=
+parent</span>;
+    <span class=3D"attribute">parent</span> =3D <span class=3D"attribute">b=
+b</span>;
+    <span class=3D"attribute">bb</span> =3D <span class=3D"attribute">cc</s=
+pan>;
+
+    <span class=3D"attribute">delete</span> [] <span class=3D"attribute">ch=
+ildren.bb_ary</span>;
+    <span class=3D"attribute">children</span> =3D <span class=3D"attribute"=
+>gen_children_gpu</span>(<span class=3D"attribute">bb</span>);
+}
+// <span class=3D"attribute">Select</span> <span class=3D"attribute">winner=
+</span> <span class=3D"attribute">...</span>
+</span></code></pre><h4 id=3D"cuda-error-6-cuda-timeout">Cuda Error 6: Cuda=
+ Timeout</h4>
+<p>One major issue I had to work around was the timeout enforced by the OS =
+on kernal=20
+calls to the GPU. My code was running close up against this limit even just=
+ for
+initializing the <code>curandState</code> variables. I found the maximum nu=
+mber of <code>curandState</code>
+variables I could initialize in a single kernal call on my Macbook Pro was =
+about 31k.
+So this limited the max number of playouts I performed on a single kernel c=
+all. </p>
+<h4 id=3D"launching-the-kernel">Launching The Kernel</h4>
+<p>For each move I generated the child boards on the CPU and copied them ov=
+er to the GPU.
+I had my kernel run evenly on all child boards. </p>
+<p>I launched blocks of 1024 threads. I launched blocks in a grid of X bloc=
+ks for each
+N child boards. Where X was however many threads could be run with the avai=
+lable number of
+<code>curandState</code> variables. That means that each child board had X =
+* 1024 playouts.</p>
+<p>For each move I ran my kernel as many times as I could within the time l=
+imit.
+The kernel adds the number of wins for each board to its respective slot in
+the array <code>d_wins</code>.</p>
+<p>Once the time is up the wins are copied back to the host and the boards =
+are sorted by
+win count on the CPU. The board with the highest win count is selected.</p>
+<pre><code><span class=3D"keyword">while</span> (time - start_time &lt; lim=
+it){
+    random_descent&lt;<span class=3D"xml"><span class=3D"tag">&lt;<span cla=
+ss=3D"title">&lt;blocks,NUM_ITERS</span>&gt;</span>&gt;&gt;(d_state, d_boar=
+ds, d_wins, player);
+    num_iter++;
+    checkCudaErrors(cudaDeviceSynchronize());
+    // Sort boards by win count, lowest to highest
+    ullong new_time =3D system_clock::to_time_t(system_clock::now());
+    if (new_time - start_time <span class=3D"tag">&lt; <span class=3D"attri=
+bute">15</span> <span class=3D"attribute">-</span> <span class=3D"attribute=
+">elapsed_time</span>){
+        <span class=3D"attribute">checkCudaErrors</span>(<span class=3D"att=
+ribute">cudaMemcpy</span>(<span class=3D"attribute">h_wins</span>,
+                            <span class=3D"attribute">d_wins</span>,
+                            <span class=3D"attribute">num_children</span> *=
+ <span class=3D"attribute">sizeof</span>(<span class=3D"attribute">ullong</=
+span>),
+                            <span class=3D"attribute">cudaMemcpyDeviceToHos=
+t</span>));
+    }
+    <span class=3D"attribute">elapsed_time</span> =3D <span class=3D"attrib=
+ute">new_time</span> <span class=3D"attribute">-</span> <span class=3D"attr=
+ibute">time</span>;
+    <span class=3D"attribute">limit</span> =3D <span class=3D"attribute">15=
+</span> <span class=3D"attribute">-</span> <span class=3D"attribute">elapse=
+d_time</span>;
+    <span class=3D"attribute">time</span> =3D <span class=3D"attribute">new=
+_time</span>;
+    <span class=3D"attribute">cout</span> &lt;&lt; "<span class=3D"attribut=
+e">Time</span> <span class=3D"attribute">elapsed:</span> " &lt;&lt; <span c=
+lass=3D"attribute">time</span> <span class=3D"attribute">-</span> <span cla=
+ss=3D"attribute">start_time</span> &lt;&lt; <span class=3D"attribute">endl<=
+/span>;
+}
+<span class=3D"attribute">thrust::sort_by_key</span>(<span class=3D"attribu=
+te">h_wins</span>, <span class=3D"attribute">h_wins</span> + <span class=3D=
+"attribute">num_children</span>, &amp;<span class=3D"attribute">children</s=
+pan>[<span class=3D"attribute">0</span>]);</span>
+</span></code></pre><h2 id=3D"analysis">Analysis</h2>
+<p>The MCRD I implemented outperformed other trained neural networks in the=
+ AI class.=20
+It appeared to make intelligent moves overall and held to reasonable strate=
+gies like
+keeping the back row unmoved until necessary. It seems to position its piec=
+es well
+and then let the opponent walk into poor situations. From the start it was =
+apparent=20
+that the MCRD algorithm often resulted in moves that forced advantageous tr=
+ades.
+The algorithm appeared to play equally well as red or black.</p>
+<h3 id=3D"mcrd-limitations">MCRD Limitations</h3>
+<p>One major and obvious limitation of MCRD is how computationally expensiv=
+e it is.
+When running on the GPU my computer comes to a standstill. Moreover much of=
+ the playouts
+are wasted since playouts are performed equally on all child boards regardl=
+ess of their=20
+relative strengths. This means that a lot of computation is wasted playing =
+out boards=20
+that will clearly not result in the max number of wins when really the top =
+two or three
+contenders might benefit more from additional playouts to reduce the varian=
+ce and possible
+overlap of their win percentages. This is what the MCTS is supposed to help=
+ with.</p>
+<p>Another limitation, or at least a serious question, of MCRD is how much =
+strategic
+play can be obtained from random playouts? It seems unlikely to me that ran=
+dom playouts
+can consistently beat sound strategy like that from master checkers players=
+ or programs=20
+like Chinook. I have yet to pit my checker program against a human or Chino=
+ok. I plan to=20
+set up my AI to work with my GUI this summer.</p>
+<h3 id=3D"future-improvements">Future Improvements</h3>
+<h4 id=3D"proportional-playout">Proportional Playout</h4>
+<p>One simple way to improve MCRD is to have each thread choose its assigne=
+d starting board state
+with probability equal to the win percentage and randomly select a differen=
+t starting
+board state otherwise. I implemented this before the second round of the to=
+urnament=20
+but I was running into the timeout error I mentioned above so I couldn't us=
+e it.</p>
+<p>I don't think this will significantly improve the quality of play in mos=
+t cases but there
+will be edge cases where the two top boards are close enough in win % that =
+additional=20
+playouts will help determine the move with the true advantage.</p>
+<h4 id=3D"mcrd-trained-neural-network">MCRD Trained Neural Network</h4>
+<p>Ultimately I want to get back to implementing the CNN I discussed above =
+using training data
+that I generate. Instead of making up the label values, I will instead crea=
+te a database of the=20
+results of MCRD from certain board states and use their values to train the=
+ CNN.=20
+It would be interesting to see the result of psuedo random playouts that we=
+re partially=20
+guided by the neural network.</p>
+</body></html>
+------MultipartBoundary--01DXaxFZvn04z5s14JSg33Pqy3vsBh9T5Qz4SDIXnG----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: chrome-extension://febilkbfcbhebfnokafefeacimjdckgl/theme/ClearnessDark.css
+
+@charset "windows-1252";
+
+h1, h2, h3, h4, h5, h6, p, blockquote { margin: 0px; padding: 0px; }
+
+body { font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', Arial,=
+ sans-serif; font-size: 13px; line-height: 18px; color: rgb(255, 255, 255);=
+ margin: 10px 13px; background-color: rgb(40, 42, 54); }
+
+a { color: rgb(89, 172, 243); }
+
+a:hover { color: rgb(167, 216, 255); text-decoration: none; }
+
+a img { border: none; }
+
+p { margin-bottom: 9px; }
+
+h1, h2, h3, h4, h5, h6 { color: rgb(255, 255, 255); line-height: 36px; }
+
+h1 { margin-bottom: 18px; font-size: 30px; }
+
+h2 { font-size: 24px; }
+
+h3 { font-size: 18px; }
+
+h4 { font-size: 16px; }
+
+h5 { font-size: 14px; }
+
+h6 { font-size: 13px; }
+
+hr { margin: 0px 0px 19px; border-width: 0px 0px 1px; border-bottom-style: =
+solid; border-bottom-color: rgb(204, 204, 204); }
+
+blockquote { padding: 13px 13px 21px 15px; margin-bottom: 18px; font-family=
+: georgia, serif; font-style: italic; }
+
+blockquote::before { content: "=93"; font-size: 40px; margin-left: -10px; f=
+ont-family: georgia, serif; color: rgb(238, 238, 238); }
+
+blockquote p { font-size: 14px; font-weight: 300; line-height: 18px; margin=
+-bottom: 0px; font-style: italic; }
+
+code, pre { font-family: Monaco, 'Andale Mono', 'Courier New', monospace; }
+
+code { color: rgb(255, 74, 20); padding: 1px 3px; font-size: 12px; border-r=
+adius: 3px; }
+
+pre { display: block; padding: 14px; margin: 0px 0px 18px; line-height: 16p=
+x; font-size: 11px; border: 1px solid rgb(191, 55, 15); white-space: pre-wr=
+ap; word-wrap: break-word; }
+
+pre code { color: rgb(255, 74, 20); font-size: 11px; padding: 0px; backgrou=
+nd-color: rgb(40, 42, 54); }
+
+@media screen and (min-width: 768px) {=20
+  body { width: 748px; margin: 10px auto; }
+}
+
+pre code { display: block; padding: 0.5em; background: rgb(40, 43, 46); }
+
+pre .keyword, pre .literal, pre .change, pre .winutils, pre .flow, pre .lis=
+p .title, pre .clojure .built_in, pre .nginx .title, pre .css .id, pre .tex=
+ .special { color: rgb(147, 199, 99); }
+
+pre .number { color: rgb(255, 205, 34); }
+
+pre code { color: rgb(224, 226, 228); }
+
+pre .css .tag, pre .css .pseudo { color: rgb(208, 210, 181); }
+
+pre .attribute, pre code .constant { color: rgb(102, 139, 176); }
+
+pre .xml .attribute { color: rgb(179, 182, 137); }
+
+pre .xml .tag .value { color: rgb(232, 226, 183); }
+
+pre .code, pre .class .title, pre .header { color: white; }
+
+pre .class, pre .hexcolor { color: rgb(147, 199, 99); }
+
+pre .regexp { color: rgb(211, 151, 69); }
+
+pre .at_rule, pre .at_rule .keyword { color: rgb(160, 130, 189); }
+
+pre .doctype { color: rgb(85, 113, 130); }
+
+pre .link_url, pre .tag, pre .tag .title, pre .bullet, pre .subst, pre .emp=
+hasis, pre .haskell .type, pre .preprocessor, pre .ruby .class .parent, pre=
+ .built_in, pre .sql .aggregate, pre .django .template_tag, pre .django .va=
+riable, pre .smalltalk .class, pre .javadoc, pre .django .filter .argument,=
+ pre .smalltalk .localvars, pre .smalltalk .array, pre .attr_selector, pre =
+.pseudo, pre .addition, pre .stream, pre .envvar, pre .apache .tag, pre .ap=
+ache .cbracket, pre .tex .command, pre .prompt { color: rgb(140, 187, 173);=
+ }
+
+pre .string { color: rgb(236, 118, 0); }
+
+pre .comment, pre .java .annotation, pre .blockquote, pre .horizontal_rule,=
+ pre .python .decorator, pre .template_comment, pre .pi, pre .deletion, pre=
+ .shebang, pre .apache .sqbracket, pre .tex .formula { color: rgb(129, 142,=
+ 150); }
+
+pre .keyword, pre .literal, pre .css .id, pre .phpdoc, pre .title, pre .hea=
+der, pre .haskell .type, pre .vbscript .built_in, pre .sql .aggregate, pre =
+.rsl .built_in, pre .smalltalk .class, pre .diff .header, pre .chunk, pre .=
+winutils, pre .bash .variable, pre .apache .tag, pre .tex .special, pre .re=
+quest, pre .at_rule .keyword, pre .status { font-weight: bold; }
+
+pre .coffeescript .javascript, pre .javascript .xml, pre .tex .formula, pre=
+ .xml .javascript, pre .xml .vbscript, pre .xml .css, pre .xml .cdata { opa=
+city: 0.5; }
+------MultipartBoundary--01DXaxFZvn04z5s14JSg33Pqy3vsBh9T5Qz4SDIXnG------

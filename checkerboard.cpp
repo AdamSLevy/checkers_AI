@@ -199,14 +199,15 @@ vector<BitBoard> gen_children(const BitBoard & bb)/*{{{*/
                             children.push_back(child);
                         }
                     }
+                    // uncheck move location from remaining moves
                     if(is_king){
                         king_movers_remaining &= ~p_piece;
                     } else{
                         movers_remaining &= ~p_piece;
                     }
                 }
-                // uncheck move location from remaining moves
-                if (!(ROW_MASK(r) & (movers_remaining | king_movers_remaining))){      // no remaining moves in row
+                // no remaining moves in row
+                if (!(ROW_MASK(r) & (movers_remaining | king_movers_remaining))){
                     break;
                 }
             }

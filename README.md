@@ -6,6 +6,7 @@ A Checkers program that plays on the `http:://skynet.uaf.cs.edu/` game server.
 - Cuda capable GPU
 - Cuda Developer Toolkit 7.0 or greater
 - C++11
+- UAF's Skynet code
 
 ## Build Set Up
 You need to find where your cuda library lives so you can link it.
@@ -13,6 +14,10 @@ Edit line 13 in the Makefile. My path is `/usr/local/cuda/lib`
 ```
 play_game: play_game.o mcmc.o checkerboard.o checkerboard_gpu.o $(JSON_SRC) $(MONGOOSE_SRC) $(SKYNET_SRC)
     nvcc $(CFLAGS) $^ -L/usr/local/cuda/lib -lcurand -o $@
+```
+If you cloned from git you will also have to download the submodule. Run
+```
+$ git submodule update
 ```
 
 ## Build
